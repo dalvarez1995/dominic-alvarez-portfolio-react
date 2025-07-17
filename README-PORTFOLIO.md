@@ -5,6 +5,7 @@ A highly customizable and modern portfolio template built with React, TypeScript
 ## ✨ Features
 
 - **Highly Parametrizable**: Easily customize all content, colors, and layout through configuration files
+- **Dynamic Title Generation**: Smart title templates with SEO optimization and professional formatting
 - **Modern Design**: Beautiful, responsive design with smooth animations and gradients
 - **TypeScript**: Full type safety and excellent developer experience
 - **Tailwind CSS**: Utility-first CSS framework for rapid styling
@@ -113,6 +114,31 @@ projects: {
   ]
 }
 ```
+
+### Dynamic Title Configuration
+Configure smart, SEO-optimized titles:
+
+```typescript
+seo: {
+  title: "Your Name - Portfolio", // Fallback title
+  titleTemplate: "{name} - {role} | Portfolio", // Dynamic template
+  description: "Your professional description...",
+  keywords: ["Your", "Skills", "Technologies"]
+}
+```
+
+**Title Template Variables:**
+- `{name}` - Your full name
+- `{role}` - Your professional title  
+- `{title}` - Alias for role
+- `{shortDescription}` - Brief description
+
+**Example Templates:**
+- `"{name} | {role}"` → "John Doe | Software Engineer"
+- `"{name} • {role} • Portfolio"` → "John Doe • Software Engineer • Portfolio"
+- `"{name} - {role}"` → "John Doe - Software Engineer"
+
+> 📖 **See the complete guide:** [Title Customization Documentation](docs/TITLE-CUSTOMIZATION.md)
 
 ### Theme Customization
 Customize colors and fonts:

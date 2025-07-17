@@ -117,6 +117,7 @@ export interface PortfolioConfig {
   // SEO
   seo: {
     title: string;
+    titleTemplate?: string; // Template for dynamic title generation (e.g., "{name} - {title}" or "{name} | {role}")
     description: string;
     keywords: string[];
     ogImage?: string;
@@ -408,7 +409,9 @@ export const defaultPortfolioConfig: PortfolioConfig = {
 
   seo: {
     title: "Dominic Alvarez Robles - Portfolio",
+    titleTemplate: "{name} - {role} | Portfolio", // Template for dynamic title generation
     description: "Portfolio of Dominic Alvarez Robles, showcasing expertise in .NET, enterprise solutions, and modern web development.",
-    keywords: ["Software Developer", "Technical Lead", ".NET", "React", "Azure", "Full Stack"]
+    keywords: ["Software Developer", "Technical Lead", ".NET", "React", "Azure", "Full Stack"],
+    ogImage: "/images/profile-photo.jpg" // Open Graph image for social media sharing
   }
 };

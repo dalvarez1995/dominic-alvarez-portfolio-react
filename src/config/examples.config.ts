@@ -159,8 +159,10 @@ export const exampleCustomConfig: Partial<PortfolioConfig> = {
   // SEO - CUSTOMIZE THIS
   seo: {
     title: "Your Name - Portfolio",
+    titleTemplate: "{name} - {role} | Portfolio", // Dynamic title template
     description: "Portfolio of Your Name, showcasing expertise in your field and technologies.",
-    keywords: ["Your Skills", "Your Technologies", "Your Industry", "Your Location"]
+    keywords: ["Your Skills", "Your Technologies", "Your Industry", "Your Location"],
+    ogImage: "/images/your-og-image.jpg" // Your Open Graph image for social media sharing
   }
 };
 

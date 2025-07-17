@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { usePortfolioConfig } from './hooks/usePortfolioConfig';
+import { generateSEOTitle } from './utils/titleUtils';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -16,9 +17,13 @@ function App() {
   // To customize, pass your custom config: usePortfolioConfig(customPortfolioConfig)
   const { config, isLoading, error } = usePortfolioConfig();
 
-  // Set document title
+  // Set document title and meta tags
   useEffect(() => {
-    document.title = config.seo.title;
+    // Generate SEO-optimized dynamic title
+    const seoOptimizedTitle = generateSEOTitle(config);
+    
+    // Set the document title
+    document.title = seoOptimizedTitle;
     
     // Set meta description
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -41,7 +46,55 @@ function App() {
       meta.content = config.seo.keywords.join(', ');
       document.head.appendChild(meta);
     }
-  }, [config.seo]);
+
+    // Set Open Graph meta tags for better social media sharing
+    const setOrUpdateMeta = (property: string, content: string, isProperty = false) => {
+      const selector = isProperty ? `meta[property="${property}"]` : `meta[name="${property}"]`;
+      let meta = document.querySelector(selector);
+      if (meta) {
+        meta.setAttribute('content', content);
+      } else {
+        meta = document.createElement('meta');
+        if (isProperty) {
+          meta.setAttribute('property', property);
+        } else {
+          meta.setAttribute('name', property);
+        }
+        meta.setAttribute('content', content);
+        document.head.appendChild(meta);
+      }
+    };
+
+    // Open Graph meta tags
+    setOrUpdateMeta('og:title', seoOptimizedTitle, true);
+    setOrUpdateMeta('og:description', config.seo.description, true);
+    setOrUpdateMeta('og:type', 'website', true);
+    setOrUpdateMeta('og:url', window.location.href, true);
+    
+    // Set og:image if provided in config
+    if (config.seo.ogImage) {
+      const ogImageUrl = config.seo.ogImage.startsWith('http') 
+        ? config.seo.ogImage 
+        : `${window.location.origin}${config.seo.ogImage}`;
+      setOrUpdateMeta('og:image', ogImageUrl, true);
+      setOrUpdateMeta('og:image:alt', `${config.personal.name} - Portfolio`, true);
+    }
+
+    // Twitter Card meta tags
+    setOrUpdateMeta('twitter:card', 'summary_large_image');
+    setOrUpdateMeta('twitter:title', seoOptimizedTitle);
+    setOrUpdateMeta('twitter:description', config.seo.description);
+    if (config.seo.ogImage) {
+      const twitterImageUrl = config.seo.ogImage.startsWith('http') 
+        ? config.seo.ogImage 
+        : `${window.location.origin}${config.seo.ogImage}`;
+      setOrUpdateMeta('twitter:image', twitterImageUrl);
+    }
+
+    // Update the page title in index.html dynamically
+    // This ensures the title is always in sync with the configuration
+    console.log(`📄 Dynamic title set: ${seoOptimizedTitle}`);
+  }, [config.seo, config.personal]);
 
   if (isLoading) {
     return (
