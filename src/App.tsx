@@ -154,6 +154,7 @@ function App() {
           stats={config.about.stats}
           skills={config.about.skills}
           profileImage={config.about.profileImage}
+          location={config.about.location}
         />
 
         {/* Projects Section */}

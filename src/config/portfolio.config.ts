@@ -31,6 +31,13 @@ export interface Specialization {
   partnerNames: string[];
 }
 
+export interface LocationInfo {
+  country: string;
+  countryCode: string; // ISO 3166-1 alpha-2 code (e.g., "EC", "US", "ES")
+  flag?: string; // Optional emoji flag fallback
+  city?: string;
+}
+
 // Portfolio Configuration - Highly customizable for different users
 export interface PortfolioConfig {
   // Personal Information
@@ -72,6 +79,7 @@ export interface PortfolioConfig {
     stats: StatItem[];
     skills: SkillCategory[];
     profileImage: string;
+    location?: LocationInfo;
   };
 
   // Projects Section
@@ -90,7 +98,7 @@ export interface PortfolioConfig {
   education: {
     title: string;
     description: string;
-    stats: EducationStat[];
+    stats: EducationStat[]; // Optional - Stats are computed automatically from certification data if empty
     certifications: {
       dataSource: string; // Path to JSON file in src/assets/data/
       searchEnabled: boolean;
@@ -227,12 +235,13 @@ export const defaultPortfolioConfig: PortfolioConfig = {
   },
 
   contact: {
-    email: "dominic@example.com",
+    email: "dom.alva1995@gmail.com",
     location: "Available Worldwide",
     social: [
-      { name: "LinkedIn", url: "https://linkedin.com/in/dominic", icon: "fab fa-linkedin", color: "#0077b5" },
-      { name: "GitHub", url: "https://github.com/dominic", icon: "fab fa-github", color: "#333" },
-      { name: "Email", url: "mailto:dominic@example.com", icon: "fas fa-envelope", color: "#ea4335" }
+      { name: "LinkedIn", url: "https://www.linkedin.com/in/dominic-alvarez-robles-1598a018a", icon: "fab fa-linkedin", color: "#0077b5" },
+      { name: "GitHub", url: "https://github.com/dalvarez1995", icon: "fab fa-github", color: "#333" },
+      { name: "Email", url: "mailto:dom.alva1995@gmail.com", icon: "fas fa-envelope", color: "#ea4335" },
+      { name: "Medium", url: "https://medium.com/@dom.alva1995", icon: "fab fa-medium", color: "#00ab6c" }
     ]
   },
 
@@ -264,7 +273,7 @@ export const defaultPortfolioConfig: PortfolioConfig = {
     stats: [
       { value: "6+", label: "Years Exp", description: "Professional experience" },
       { value: "20+", label: "Projects", description: "Completed successfully" },
-      { value: "21", label: "Certificates", description: "Professional certifications" }
+      { value: "0", label: "Certificates", description: "Professional certifications" } // Will be computed dynamically
     ],
     skills: [
       {
@@ -280,7 +289,13 @@ export const defaultPortfolioConfig: PortfolioConfig = {
         skills: [".NET Core", "Node.js", "SQL Server", "Azure"]
       }
     ],
-    profileImage: "/images/profile-photo.jpg"
+    profileImage: "/images/profile-photo.jpg",
+    location: {
+      country: "Ecuador",
+      countryCode: "EC", // ISO 3166-1 alpha-2 code for Ecuador
+      flag: "🇪🇨", // Fallback emoji
+      city: "Guayaquil"
+    }
   },
 
   projects: {
@@ -358,11 +373,7 @@ export const defaultPortfolioConfig: PortfolioConfig = {
   education: {
     title: "Education & Certifications",
     description: "Continuous learning and professional development through industry-recognized programs and specialized certifications",
-    stats: [
-      { value: "24", label: "Total Credentials", icon: "fas fa-certificate", color: "primary" },
-      { value: "3", label: "Leading Partners", icon: "fas fa-university", color: "accent" },
-      { value: "98%", label: "Average Score", icon: "fas fa-chart-line", color: "blue" }
-    ],
+    stats: [], // Stats are now computed automatically from certification and specialization data
     certifications: {
       dataSource: "src/assets/data/certifications.json", // ✅ Datos privados en src/
       searchEnabled: true,

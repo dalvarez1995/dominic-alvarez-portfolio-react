@@ -171,11 +171,7 @@ const Projects: React.FC<ProjectsProps> = ({
                     </div>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                      <i className={`fas fa-user mr-2 ${getFeatureColor('blue')} group-hover:animate-pulse`}></i>
-                      <span className="font-medium">Personal Project</span>
-                    </div>
+                  <div className="text-center">
                     {/* Type Badge at the end */}
                     <span className={`px-3 py-1.5 bg-linear-to-r ${getTypeColor('personal')} text-white text-xs font-bold rounded-full shadow-lg group-hover:animate-bounce`}>
                       💼 Personal

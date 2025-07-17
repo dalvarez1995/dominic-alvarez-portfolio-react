@@ -58,6 +58,52 @@ const Education: React.FC<EducationProps> = ({
     loadData();
   }, [specializations]);
 
+  // Compute dynamic stats based on actual data
+  const computedStats = useMemo(() => {
+    const totalCredentials = allCertifications.length + allSpecializations.length;
+    
+    // Get unique partners/institutions
+    const uniquePartners = new Set<string>();
+    allCertifications.forEach(cert => {
+      cert.partners.forEach(partner => uniquePartners.add(partner.name));
+    });
+    allSpecializations.forEach(spec => {
+      spec.partnerNames.forEach(partner => uniquePartners.add(partner));
+    });
+    
+    // Calculate years of continuous learning (from earliest certification to now)
+    const allDates = [
+      ...allCertifications.map(cert => cert.completionDate),
+      ...allSpecializations.map(spec => spec.completionDate)
+    ];
+    const earliestDate = allDates.length > 0 ? Math.min(...allDates) : Date.now();
+    const yearsLearning = Math.max(1, Math.floor((Date.now() - earliestDate) / (1000 * 60 * 60 * 24 * 365)));
+    
+    return [
+      {
+        value: totalCredentials.toString(),
+        label: "Total Credentials",
+        icon: "fas fa-certificate",
+        color: "primary"
+      },
+      {
+        value: uniquePartners.size.toString(),
+        label: "Leading Partners",
+        icon: "fas fa-university",
+        color: "accent"
+      },
+      {
+        value: `${yearsLearning}+`,
+        label: "Years Learning",
+        icon: "fas fa-graduation-cap",
+        color: "blue"
+      }
+    ];
+  }, [allCertifications, allSpecializations]);
+
+  // Use computed stats instead of props.stats
+  const displayStats = computedStats.length > 0 ? computedStats : stats;
+
   // Filter and search certifications
   const filteredCertifications = useMemo(() => {
     let filtered = allCertifications;
@@ -116,7 +162,8 @@ const Education: React.FC<EducationProps> = ({
     const colorMap = {
       primary: 'bg-linear-to-r from-primary-500 to-primary-600',
       accent: 'bg-linear-to-r from-accent-500 to-accent-600',
-      blue: 'bg-linear-to-r from-blue-500 to-blue-600'
+      blue: 'bg-linear-to-r from-blue-500 to-blue-600',
+      green: 'bg-linear-to-r from-green-500 to-green-600'
     };
     return colorMap[color as keyof typeof colorMap] || colorMap.primary;
   };
@@ -145,22 +192,36 @@ const Education: React.FC<EducationProps> = ({
         </div>
         
         {/* Stats Cards */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16 animate-slide-up">
-          {stats.map((stat, index) => (
-            <div 
-              key={index}
-              className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl hover:scale-105 transition-all duration-300 text-center group animate-bounce-in"
-              style={{animationDelay: `${index * 0.1}s`}}
-            >
-              <div className={`w-16 h-16 ${getStatColor(stat.color)} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300`}>
-                <i className={`${stat.icon} text-white text-2xl group-hover:animate-bounce`}></i>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 animate-slide-up">
+          {loading ? (
+            // Loading skeleton for stats
+            Array.from({ length: 3 }).map((_, index) => (
+              <div 
+                key={index}
+                className="bg-white rounded-3xl p-6 lg:p-8 shadow-lg border border-gray-100 text-center animate-pulse"
+              >
+                <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gray-200 rounded-2xl mx-auto mb-4 lg:mb-6"></div>
+                <div className="h-8 lg:h-10 bg-gray-200 rounded-lg mb-2 mx-auto w-16"></div>
+                <div className="h-4 bg-gray-200 rounded-lg mx-auto w-24"></div>
               </div>
-              <div className="text-4xl font-bold bg-linear-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent mb-2 group-hover:animate-glow transition-all duration-300">
-                {stat.value}
+            ))
+          ) : (
+            displayStats.map((stat, index) => (
+              <div 
+                key={index}
+                className="bg-white rounded-3xl p-6 lg:p-8 shadow-lg border border-gray-100 hover:shadow-xl hover:scale-105 transition-all duration-300 text-center group animate-bounce-in"
+                style={{animationDelay: `${index * 0.1}s`}}
+              >
+                <div className={`w-12 h-12 lg:w-16 lg:h-16 ${getStatColor(stat.color)} rounded-2xl flex items-center justify-center mx-auto mb-4 lg:mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300`}>
+                  <i className={`${stat.icon} text-white text-lg lg:text-2xl group-hover:animate-bounce`}></i>
+                </div>
+                <div className="text-2xl lg:text-4xl font-bold bg-linear-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent mb-2 group-hover:animate-glow transition-all duration-300">
+                  {stat.value}
+                </div>
+                <div className="text-gray-600 font-medium text-sm lg:text-base">{stat.label}</div>
               </div>
-              <div className="text-gray-600 font-medium">{stat.label}</div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
 
         {/* Professional Specializations Section */}
