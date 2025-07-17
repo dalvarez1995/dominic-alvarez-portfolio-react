@@ -74,7 +74,23 @@ export const defaultPortfolioConfig: PortfolioConfig = {
       countryCode: "EC", // ISO 3166-1 alpha-2 code for Ecuador
       flag: "🇪🇨", // Fallback emoji
       city: "Guayaquil"
-    }
+    },
+    languages: [
+      {
+        name: "Spanish",
+        level: "Native",
+        proficiency: 100,
+        countryCode: "ES",
+        flag: "🇪🇸"
+      },
+      {
+        name: "English",
+        level: "B2", // Upper-intermediate level
+        proficiency: 75,
+        countryCode: "US",
+        flag: "🇺🇸"
+      },
+    ]
   },
 
   projects: {

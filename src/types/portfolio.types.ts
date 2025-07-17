@@ -1,5 +1,5 @@
 // Main portfolio configuration types
-import type { SocialLink, NavItem, HeroButton, StatItem, SkillCategory, LocationInfo } from './ui.types';
+import type { SocialLink, NavItem, HeroButton, StatItem, SkillCategory, LocationInfo, LanguageInfo } from './ui.types';
 import type { Project } from './project.types';
 import type { EducationStat } from './education.types';
 import type { ColorScale } from './theme.types';
@@ -45,6 +45,7 @@ export interface PortfolioConfig {
     skills: SkillCategory[];
     profileImage: string;
     location?: LocationInfo;
+    languages?: LanguageInfo[];
   };
 
   // Projects Section

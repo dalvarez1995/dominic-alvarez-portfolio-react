@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import ReactCountryFlag from 'react-country-flag';
-import type { StatItem, SkillCategory, LocationInfo } from '../types/ui.types';
+import type { StatItem, SkillCategory, LocationInfo, LanguageInfo } from '../types/ui.types';
 import type { Certification, Specialization } from '../types/education.types';
 import { loadCertifications, loadSpecializations } from '../utils/educationData';
 
@@ -11,6 +11,7 @@ interface AboutProps {
   skills: SkillCategory[];
   profileImage: string;
   location?: LocationInfo;
+  languages?: LanguageInfo[];
   className?: string;
 }
 
@@ -21,6 +22,7 @@ const About: React.FC<AboutProps> = ({
   skills,
   profileImage,
   location,
+  languages,
   className = ''
 }) => {
   const [allCertifications, setAllCertifications] = useState<Certification[]>([]);
@@ -67,6 +69,31 @@ const About: React.FC<AboutProps> = ({
 
   // Use computed stats or fallback to original stats
   const displayStats = loading ? stats : computedStats;
+  
+  // Helper function to get level description and color
+  const getLevelInfo = (level: string) => {
+    const levelMap: Record<string, { description: string; color: string; bgColor: string }> = {
+      'Native': { description: 'Native Speaker', color: 'text-purple-600', bgColor: 'bg-purple-100' },
+      'Bilingual': { description: 'Bilingual', color: 'text-purple-600', bgColor: 'bg-purple-100' },
+      'C2': { description: 'Proficient (C2)', color: 'text-green-600', bgColor: 'bg-green-100' },
+      'C1': { description: 'Advanced (C1)', color: 'text-green-600', bgColor: 'bg-green-100' },
+      'B2': { description: 'Upper-intermediate (B2)', color: 'text-blue-600', bgColor: 'bg-blue-100' },
+      'B1': { description: 'Intermediate (B1)', color: 'text-blue-600', bgColor: 'bg-blue-100' },
+      'A2': { description: 'Elementary (A2)', color: 'text-yellow-600', bgColor: 'bg-yellow-100' },
+      'A1': { description: 'Beginner (A1)', color: 'text-yellow-600', bgColor: 'bg-yellow-100' },
+      'Fluent': { description: 'Fluent', color: 'text-green-600', bgColor: 'bg-green-100' },
+      'Professional': { description: 'Professional', color: 'text-blue-600', bgColor: 'bg-blue-100' },
+      'Advanced': { description: 'Advanced', color: 'text-green-600', bgColor: 'bg-green-100' },
+      'Intermediate': { description: 'Intermediate', color: 'text-blue-600', bgColor: 'bg-blue-100' },
+      'Conversational': { description: 'Conversational', color: 'text-blue-600', bgColor: 'bg-blue-100' },
+      'Elementary': { description: 'Elementary', color: 'text-yellow-600', bgColor: 'bg-yellow-100' },
+      'Basic': { description: 'Basic', color: 'text-yellow-600', bgColor: 'bg-yellow-100' },
+      'Beginner': { description: 'Beginner', color: 'text-yellow-600', bgColor: 'bg-yellow-100' }
+    };
+    
+    return levelMap[level] || { description: level, color: 'text-gray-600', bgColor: 'bg-gray-100' };
+  };
+
   const getColorClasses = (color: string) => {
     const colorMap = {
       primary: {
@@ -159,6 +186,59 @@ const About: React.FC<AboutProps> = ({
                           </div>
                         )}
                       </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Languages Info */}
+              {languages && languages.length > 0 && (
+                <div className="mb-6 animate-fade-in stagger-8">
+                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-4 border border-blue-100 hover:border-blue-200 transition-all duration-300">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-3 text-center">Languages</h4>
+                    <div className="space-y-3">
+                      {languages.map((language, index) => {
+                        const levelInfo = getLevelInfo(language.level);
+                        return (
+                          <div key={index} className="flex items-center justify-between group/lang">
+                            <div className="flex items-center space-x-2">
+                              {language.countryCode && (
+                                <ReactCountryFlag
+                                  countryCode={language.countryCode}
+                                  svg
+                                  style={{
+                                    width: '1.25rem',
+                                    height: '0.9rem',
+                                    borderRadius: '2px',
+                                    boxShadow: '0 1px 4px rgba(0,0,0,0.1)'
+                                  }}
+                                  title={language.name}
+                                  aria-label={`Flag representing ${language.name}`}
+                                />
+                              )}
+                              <span className="text-sm font-medium text-gray-800 group-hover/lang:text-blue-600 transition-colors duration-300">
+                                {language.name}
+                              </span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <span 
+                                className={`text-xs font-medium px-2 py-1 rounded-full ${levelInfo.color} ${levelInfo.bgColor}`}
+                                title={levelInfo.description}
+                              >
+                                {language.level}
+                              </span>
+                              {language.proficiency && (
+                                <div className="w-16 bg-gray-200 rounded-full h-2">
+                                  <div 
+                                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500 group-hover/lang:shadow-lg"
+                                    style={{ width: `${language.proficiency}%` }}
+                                  ></div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>

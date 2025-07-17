@@ -38,3 +38,13 @@ export interface LocationInfo {
   flag?: string; // Optional emoji flag fallback
   city?: string;
 }
+
+export interface LanguageInfo {
+  name: string;
+  level: 'Native' | 'Fluent' | 'Advanced' | 'Intermediate' | 'Basic' | 'C2' | 'C1' | 'B2' | 'B1' | 'A2' | 'A1' | 'Bilingual' | 'Professional' | 'Conversational' | 'Elementary' | 'Beginner';
+  // CEFR Levels: A1 (Beginner), A2 (Elementary), B1 (Intermediate), B2 (Upper-intermediate), C1 (Advanced), C2 (Proficient)
+  // Other levels: Native, Bilingual, Fluent, Professional, Conversational, Advanced, Intermediate, Basic, Beginner
+  proficiency?: number; // 1-100 percentage
+  flag?: string; // Language flag or country flag representing the language
+  countryCode?: string; // ISO code for flag display
+}
