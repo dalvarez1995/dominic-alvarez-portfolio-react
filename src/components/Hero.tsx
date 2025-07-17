@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { HeroButton } from '../config/portfolio.config';
+import { motion } from 'framer-motion';
 
 interface HeroProps {
   greeting: string;
@@ -21,11 +22,18 @@ const Hero: React.FC<HeroProps> = ({
   description,
   buttons,
   availability,
-  backgroundEffects = true,
   scrollIndicator = true,
   className = ''
 }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [codeLines, setCodeLines] = useState([
+    '{ "developer": "passionate" }',
+    'const skills = ["React", "TypeScript"];',
+    'function createMagic() { return innovation; }',
+    'while(learning) { keep.coding(); }',
+    'import dreams from "reality";',
+    'export const success = true;'
+  ]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -35,8 +43,21 @@ const Hero: React.FC<HeroProps> = ({
       });
     };
 
+    // Rotate code lines every 3 seconds
+    const interval = setInterval(() => {
+      setCodeLines(prev => {
+        const newLines = [...prev];
+        const first = newLines.shift();
+        if (first) newLines.push(first);
+        return newLines;
+      });
+    }, 3000);
+
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      clearInterval(interval);
+    };
   }, []);
 
   const scrollToSection = (href: string) => {
@@ -55,72 +76,239 @@ const Hero: React.FC<HeroProps> = ({
       id="home" 
       className={`relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 ${className}`}
     >
+      {/* Animated Particle Network */}
+      <div className="absolute inset-0">
+        {[...Array(25)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-primary-400 rounded-full opacity-30"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              x: [0, Math.random() * 100 - 50],
+              y: [0, Math.random() * 100 - 50],
+              opacity: [0.1, 0.8, 0.1],
+              scale: [1, 1.5, 1]
+            }}
+            transition={{
+              duration: Math.random() * 10 + 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: Math.random() * 2
+            }}
+          />
+        ))}
+      </div>
+
       {/* Dynamic Grid Background */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-15">
         <div 
-          className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-accent-500/20"
+          className="absolute inset-0"
           style={{
-            background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(59, 130, 246, 0.15) 0%, transparent 50%)`
+            background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(59, 130, 246, 0.2) 0%, transparent 50%)`
           }}
         />
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+            linear-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.15) 1px, transparent 1px)
           `,
-          backgroundSize: '50px 50px',
+          backgroundSize: '40px 40px',
           animation: 'grid-move 20s linear infinite'
         }} />
       </div>
 
-      {/* Floating Code Elements */}
+      {/* Floating Code Rain */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 text-primary-400/20 font-mono text-xs animate-float">
-          &lt;dev&gt;
-        </div>
-        <div className="absolute top-32 right-20 text-accent-400/20 font-mono text-xs animate-float" style={{animationDelay: '1s'}}>
-          console.log();
-        </div>
-        <div className="absolute bottom-32 left-20 text-primary-300/20 font-mono text-xs animate-float" style={{animationDelay: '2s'}}>
-          const magic = true;
-        </div>
-        <div className="absolute bottom-20 right-20 text-accent-300/20 font-mono text-xs animate-float" style={{animationDelay: '3s'}}>
-          &lt;/dev&gt;
-        </div>
+        {codeLines.map((line, index) => (
+          <motion.div
+            key={`${line}-${index}`}
+            className="absolute font-mono text-xs text-primary-300/20 whitespace-nowrap"
+            style={{
+              left: `${10 + (index * 15)}%`,
+              top: `${20 + (index * 10)}%`,
+            }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ 
+              opacity: [0, 1, 1, 0],
+              y: [0, 20, 20, 40],
+              x: [0, Math.sin(index) * 10]
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              delay: index * 0.5,
+              ease: "easeInOut"
+            }}
+          >
+            {line}
+          </motion.div>
+        ))}
       </div>
 
-      {/* Animated Background Elements */}
-      {backgroundEffects && (
-        <div className="absolute inset-0">
-          {/* Geometric shapes */}
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-primary-500/15 to-accent-500/15 rounded-full blur-3xl animate-float opacity-0 animate-fade-in"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-gradient-to-r from-accent-500/15 to-primary-400/15 rounded-full blur-3xl animate-float opacity-0 animate-fade-in" style={{animationDelay: '1s'}}></div>
-          <div className="absolute top-3/4 left-1/2 w-32 h-32 bg-gradient-to-r from-primary-400/15 to-accent-400/15 rounded-full blur-2xl animate-float opacity-0 animate-fade-in" style={{animationDelay: '2s'}}></div>
-          
-          {/* Matrix-like vertical lines */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-30">
-            <div className="grid grid-cols-12 gap-4 h-full">
-              {[...Array(5)].map((_, i) => (
-                <div 
-                  key={i}
-                  className={`col-span-1 bg-gradient-to-b from-transparent via-primary-400/20 to-transparent animate-pulse stagger-${i + 1}`}
-                  style={{
-                    animationDuration: `${2 + i * 0.5}s`,
-                    animationDelay: `${i * 0.2}s`
-                  }}
-                />
-              ))}
-            </div>
-          </div>
+      {/* Neon Grid Lines */}
+      <div className="absolute inset-0 opacity-10">
+        <motion.div 
+          className="absolute inset-0"
+          animate={{
+            backgroundPosition: ['0% 0%', '100% 100%']
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{
+            backgroundImage: `
+              linear-gradient(45deg, transparent 49%, rgba(59, 130, 246, 0.3) 50%, transparent 51%),
+              linear-gradient(-45deg, transparent 49%, rgba(16, 185, 129, 0.3) 50%, transparent 51%)
+            `,
+            backgroundSize: '60px 60px'
+          }}
+        />
+      </div>
 
-          {/* Hexagon Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-20 left-20 w-12 h-12 border border-primary-400 transform rotate-45 animate-spin-slow"></div>
-            <div className="absolute top-40 right-40 w-8 h-8 border border-accent-400 transform rotate-12 animate-bounce-gentle"></div>
-            <div className="absolute bottom-40 left-40 w-16 h-16 border border-primary-300 transform -rotate-12 animate-pulse"></div>
-          </div>
-        </div>
-      )}
+      {/* Binary Rain Effect */}
+      <div className="absolute inset-0 overflow-hidden opacity-10">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute font-mono text-xs text-primary-300 leading-none"
+            style={{
+              left: `${i * 5}%`,
+              fontSize: '8px'
+            }}
+            animate={{
+              y: ['-100vh', '100vh']
+            }}
+            transition={{
+              duration: Math.random() * 10 + 5,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: "linear"
+            }}
+          >
+            {[...Array(50)].map((_, j) => (
+              <div key={j} style={{ animationDelay: `${j * 0.1}s` }}>
+                {Math.random() > 0.5 ? '1' : '0'}
+              </div>
+            ))}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Scanning Lines */}
+      <div className="absolute inset-0 overflow-hidden opacity-20">
+        <motion.div
+          className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-primary-400 to-transparent"
+          animate={{
+            y: ['-2px', '100vh']
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-accent-400 to-transparent"
+          animate={{
+            y: ['-2px', '100vh']
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            delay: 1.5,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
+
+      {/* Glowing Orbs */}
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute top-20 right-20 w-2 h-2 bg-primary-400 rounded-full shadow-lg"
+          animate={{
+            scale: [1, 2, 1],
+            opacity: [0.3, 1, 0.3],
+            boxShadow: [
+              '0 0 10px rgba(59, 130, 246, 0.3)',
+              '0 0 30px rgba(59, 130, 246, 0.8)',
+              '0 0 10px rgba(59, 130, 246, 0.3)'
+            ]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-32 left-16 w-1.5 h-1.5 bg-accent-400 rounded-full shadow-lg"
+          animate={{
+            scale: [1, 1.8, 1],
+            opacity: [0.4, 1, 0.4],
+            boxShadow: [
+              '0 0 8px rgba(16, 185, 129, 0.3)',
+              '0 0 25px rgba(16, 185, 129, 0.8)',
+              '0 0 8px rgba(16, 185, 129, 0.3)'
+            ]
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            delay: 0.5,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/3 w-1 h-1 bg-primary-300 rounded-full shadow-lg"
+          animate={{
+            scale: [1, 2.5, 1],
+            opacity: [0.2, 0.8, 0.2],
+            boxShadow: [
+              '0 0 6px rgba(147, 197, 253, 0.3)',
+              '0 0 20px rgba(147, 197, 253, 0.8)',
+              '0 0 6px rgba(147, 197, 253, 0.3)'
+            ]
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            delay: 1,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
+
+      {/* Data Stream */}
+      <div className="absolute inset-0 overflow-hidden opacity-15">
+        <motion.div
+          className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-transparent via-primary-400 to-transparent"
+          animate={{
+            x: ['0vw', '100vw']
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-transparent via-accent-400 to-transparent"
+          animate={{
+            x: ['0vw', '100vw']
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            delay: 2,
+            ease: "linear"
+          }}
+        />
+      </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full">
         <div className="max-w-4xl">
