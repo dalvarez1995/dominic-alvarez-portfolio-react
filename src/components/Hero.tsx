@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import type { HeroButton } from '../config/portfolio.config';
+import type { HeroButton } from '../types/ui.types';
 import { motion } from 'framer-motion';
 
 interface HeroProps {

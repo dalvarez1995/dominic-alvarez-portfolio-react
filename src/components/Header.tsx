@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import type { NavItem } from '../config/portfolio.config';
+import type { NavItem } from '../types/ui.types';
 
 interface HeaderProps {
   name: string;

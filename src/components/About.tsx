@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import ReactCountryFlag from 'react-country-flag';
-import type { StatItem, SkillCategory, LocationInfo, Certification, Specialization } from '../config/portfolio.config';
+import type { StatItem, SkillCategory, LocationInfo } from '../types/ui.types';
+import type { Certification, Specialization } from '../types/education.types';
 import { loadCertifications, loadSpecializations } from '../utils/educationData';
 
 interface AboutProps {

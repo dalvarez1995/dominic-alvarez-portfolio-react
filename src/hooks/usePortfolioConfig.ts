@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import type { PortfolioConfig } from '../config/portfolio.config';
+import type { PortfolioConfig } from '../types/portfolio.types';
 import { defaultPortfolioConfig } from '../config/portfolio.config';
 
 // Hook for managing portfolio configuration

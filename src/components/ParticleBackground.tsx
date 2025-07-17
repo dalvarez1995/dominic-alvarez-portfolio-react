@@ -1,17 +1,10 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Particles from '@tsparticles/react';
-import { loadSlim } from '@tsparticles/slim';
-import type { Engine } from '@tsparticles/engine';
 
 const ParticleBackground: React.FC = () => {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine);
-  }, []);
-
   return (
     <Particles
       id="particles-background"
-      init={particlesInit}
       className="absolute inset-0"
       options={{
         fpsLimit: 60,

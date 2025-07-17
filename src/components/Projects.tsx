@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Project } from '../config/portfolio.config';
+import type { Project } from '../types/project.types';
 
 interface ProjectsProps {
   title: string;

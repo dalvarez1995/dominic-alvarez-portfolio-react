@@ -1,5 +1,5 @@
 import { usePortfolioConfig } from '../hooks/usePortfolioConfig';
-import type { SocialLink } from '../config/portfolio.config';
+import type { SocialLink } from '../types/ui.types';
 
 export default function Contact() {
   const { config } = usePortfolioConfig();

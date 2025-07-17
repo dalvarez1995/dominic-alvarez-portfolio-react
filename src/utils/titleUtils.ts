@@ -1,7 +1,7 @@
 /**
  * Utility functions for dynamic title generation
  */
-import type { PortfolioConfig } from '../config/portfolio.config';
+import type { PortfolioConfig } from '../types/portfolio.types';
 
 /**
  * Generate a dynamic title using the template and personal information

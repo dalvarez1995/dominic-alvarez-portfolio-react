@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import type { EducationStat, Certification, Specialization } from '../config/portfolio.config';
+import type { EducationStat, Certification, Specialization } from '../types/education.types';
 import { loadCertifications, loadSpecializations } from '../utils/educationData';
+import { getVerificationUrl, getSpecializationVerificationUrl, getProviderInfo } from '../config/verification.config';
 
 interface EducationProps {
   title: string;
@@ -151,6 +152,29 @@ const Education: React.FC<EducationProps> = ({
     return logoMap;
   }, [allCertifications]);
 
+  // Helper function to generate verification URL
+  const getVerificationUrlForCert = (cert: Certification): string => {
+    return getVerificationUrl(
+      cert.verifyCode,
+      cert.provider || 'coursera',
+      cert.verificationUrl
+    );
+  };
+
+  // Helper function to generate verification URL for specializations
+  const getVerificationUrlForSpec = (spec: Specialization): string => {
+    return getSpecializationVerificationUrl(
+      spec.verifyCode,
+      spec.provider || 'coursera',
+      spec.verificationUrl
+    );
+  };
+
+  // Helper function to get provider info for button styling
+  const getProviderInfoForItem = (provider?: string) => {
+    return getProviderInfo(provider || 'coursera');
+  };
+
   const formatDate = (timestamp: number) => {
     return new Date(timestamp).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -239,7 +263,7 @@ const Education: React.FC<EducationProps> = ({
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
               {allSpecializations.map((spec, index) => (
                 <article 
-                  key={spec.id + spec.specializationId}
+                  key={spec.specializationId}
                   className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl hover:scale-105 transition-all duration-300 group animate-slide-up"
                   style={{animationDelay: `${index * 0.1}s`}}
                 >
@@ -294,13 +318,14 @@ const Education: React.FC<EducationProps> = ({
                   {spec.verifyCode && (
                     <div className="mb-4">
                       <a 
-                        href={`https://www.coursera.org/account/accomplishments/professional-cert/${spec.verifyCode}`}
+                        href={getVerificationUrlForSpec(spec)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center w-full px-4 py-3 bg-linear-to-r from-accent-500 to-accent-600 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:scale-105 transition-all duration-300 group-hover:shadow-xl"
+                        title={`Verify on ${getProviderInfoForItem(spec.provider).displayName}`}
                       >
-                        <i className="fas fa-external-link-alt mr-2 hover:animate-bounce"></i>
-                        Verify Certificate
+                        <i className={`${getProviderInfoForItem(spec.provider).icon || 'fas fa-external-link-alt'} mr-2 hover:animate-bounce`}></i>
+                        Verify on {getProviderInfoForItem(spec.provider).displayName}
                       </a>
                     </div>
                   )}
@@ -412,7 +437,7 @@ const Education: React.FC<EducationProps> = ({
             ) : (
               filteredCertifications.map((cert, index) => (
                 <article 
-                  key={cert.id + cert.courseId}
+                  key={cert.courseId}
                   className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl hover:scale-105 transition-all duration-300 group animate-slide-up"
                   style={{animationDelay: `${index * 0.1}s`}}
                 >
@@ -460,13 +485,14 @@ const Education: React.FC<EducationProps> = ({
                   {cert.verifyCode && (
                     <div className="mb-4">
                       <a 
-                        href={`https://coursera.org/verify/${cert.verifyCode}`}
+                        href={getVerificationUrlForCert(cert)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center w-full px-4 py-3 bg-linear-to-r from-primary-500 to-primary-600 text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 group-hover:shadow-xl"
+                        title={`Verify on ${getProviderInfoForItem(cert.provider).displayName}`}
                       >
-                        <i className="fas fa-external-link-alt mr-2 hover:animate-bounce"></i>
-                        Verify Certificate
+                        <i className={`${getProviderInfoForItem(cert.provider).icon || 'fas fa-external-link-alt'} mr-2 hover:animate-bounce`}></i>
+                        Verify on {getProviderInfoForItem(cert.provider).displayName}
                       </a>
                     </div>
                   )}
