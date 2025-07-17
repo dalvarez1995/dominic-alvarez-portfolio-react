@@ -3,6 +3,7 @@ import ReactCountryFlag from 'react-country-flag';
 import type { StatItem, SkillCategory, LocationInfo, LanguageInfo } from '../types/ui.types';
 import type { Certification, Specialization } from '../types/education.types';
 import { loadCertifications, loadSpecializations } from '../utils/educationData';
+import OptimizedProfileImage from './OptimizedProfileImage';
 
 interface AboutProps {
   title?: string;
@@ -149,10 +150,11 @@ const About: React.FC<AboutProps> = ({
               <div className="text-center mb-6">
                 <div className="relative inline-block group">
                   <div className="absolute inset-0 bg-linear-to-r from-primary-600 to-accent-600 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300 animate-glow"></div>
-                  <img 
+                  <OptimizedProfileImage 
                     src={profileImage} 
                     alt="Profile" 
-                    className="relative w-40 h-40 lg:w-48 lg:h-48 object-cover rounded-full border-4 border-white shadow-2xl transition-all duration-500 animate-fade-in mx-auto"
+                    size="medium"
+                    className="relative animate-fade-in mx-auto"
                   />
                 </div>
               </div>

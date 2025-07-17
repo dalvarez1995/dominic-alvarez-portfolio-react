@@ -6,7 +6,7 @@ export const defaultPortfolioConfig: PortfolioConfig = {
     name: "Dominic Alvarez Robles",
     title: "Software Technical Lead & Developer",
     shortDescription: "I create innovative solutions across web, desktop, and mobile platforms with a focus on technical leadership and cutting-edge technology.",
-    profileImage: "/assets/images/profile-photo.jpg",
+    profileImage: "/images/profile-photo.jpg",
     availability: {
       status: true,
       text: "🚀 Available for new opportunities"
