@@ -23,7 +23,7 @@ export const rawSpecializations: Specialization[] = [
     partnerNames: ["Microsoft"],
     completionDate: new Date("2025-05-08").getTime(), // May 2025
     verifyCode: "YG3NUB7FQWMK"
-  }
+  },
 ];
 
 // Enhanced specialization data with computed properties

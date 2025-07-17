@@ -64,6 +64,18 @@ export const VERIFICATION_PROVIDERS: ProviderConfig = {
     urlPattern: 'https://aws.amazon.com/verification/{verifyCode}',
     displayName: 'AWS Training',
     icon: 'fab fa-aws'
+  },
+  credly: {
+    baseUrl: 'https://credly.com',
+    urlPattern: 'https://credly.com/badges/{verifyCode}',
+    displayName: 'Credly',
+    icon: 'fas fa-award'
+  },
+  platzi: {
+    baseUrl: 'https://platzi.com',
+    urlPattern: 'https://platzi.com/p/{verifyCode}/diploma/detalle/',
+    displayName: 'Platzi',
+    icon: 'fas fa-graduation-cap'
   }
 };
 
@@ -131,7 +143,9 @@ export const detectProvider = (
     'meta': 'coursera', // Meta courses are typically on Coursera
     'facebook': 'coursera',
     'ibm': 'coursera',
-    'university': 'coursera' // Most universities use Coursera
+    'university': 'coursera', // Most universities use Coursera
+    'credly': 'credly',
+    'platzi': 'platzi'
   };
 
   for (const [partnerKey, providerName] of Object.entries(partnerToProvider)) {

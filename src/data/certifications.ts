@@ -275,7 +275,21 @@ export const rawCertifications: Certification[] = [
     completionDate: new Date("2025-04-22").getTime(), // April 2025
     verifyCode: "XMEUEOYVYR7K",
     distinctionLevel: "NORMAL"
-  }
+  },
+  {
+      courseId: 'oSFuP1',
+      name: "English Certificate 75/100 (C2 Proficient)",
+      partners: [
+        {
+          name: "EF SET",
+          logo: "https://cert.efset.org/_next/static/media/logo.06bf8183.svg"
+        }
+    ],
+      completionDate: new Date("2024-07-01").getTime(), // July 2024
+      verifyCode: "oSFuP1",
+      verificationUrl: "https://cert.efset.org/oSFuP1",
+      distinctionLevel: "NORMAL"
+    }
 ];
 
 // Enhanced certification data with computed properties
