@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://dominic-alvarez.dev/sitemap.xml
+
+# Allow indexing of all content
+Allow: /assets/
+Allow: /images/
+
+# Optional: Crawl delay (in seconds) - can help with server load
+# Crawl-delay: 1
+
+# Block access to development/admin areas if any exist
+# Disallow: /admin/
+# Disallow: /.git/
+# Disallow: /node_modules/
