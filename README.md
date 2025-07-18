@@ -303,11 +303,12 @@ NODE_VERSION=18.x
 **Configuración rápida en Render:**
 1. Ve a [render.com](https://render.com) y conecta tu GitHub
 2. Selecciona "New Static Site"
+![Conectar Repositorio](docs/Render%20-%20Connect%20Repository.png)
 3. Conecta tu repositorio
 4. Configura:
    - **Build Command**: `npm run build`
    - **Publish Directory**: `dist`
-   - **Node Version**: `18.x` (en variables de entorno)
+![Conectar Repositorio](docs/Render%20-%20Configurate%20Build%20Command%20&%20Publish%20Directory.png)
 5. Deploy automático en cada push a main
 
 ### Vercel
