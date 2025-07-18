@@ -362,7 +362,7 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 
 🔗 **Demo en vivo**: [Ver Portfolio](https://dominic-alvarez.dev)
 
-📧 **Soporte**: Si tienes preguntas, abre un issue o contacta al mantenedor.
+📧 **Soporte**: Si tienes preguntas, abre un issue o contactame.
 
 ## 📚 Documentación Adicional
 
