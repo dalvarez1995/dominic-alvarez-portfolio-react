@@ -12,6 +12,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-05-08").getTime(), // May 2025
     verifyCode: "8I79HM72RQY9",
     distinctionLevel: "NORMAL"
@@ -25,6 +26,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-04-26").getTime(), // April 2025
     verifyCode: "NKF2GU938KRF",
     distinctionLevel: "NORMAL"
@@ -38,6 +40,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-04-16").getTime(), // April 2025
     verifyCode: "4SK11UCVLK6B",
     distinctionLevel: "NORMAL"
@@ -51,6 +54,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-04-10").getTime(), // April 2025
     verifyCode: "Y9VBK1F3J7T2",
     distinctionLevel: "NORMAL"
@@ -64,6 +68,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/6b/7dddea1b364f6a816dfc53891e6d14/160x60_Google.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2024-07-21").getTime(), // July 2024
     verifyCode: "H7P4Y9JK8H3W",
     distinctionLevel: "NORMAL"
@@ -77,6 +82,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-07-10").getTime(), // July 2025
     verifyCode: "BGQYYVSHFKR5",
     distinctionLevel: "NORMAL"
@@ -90,6 +96,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-05-07").getTime(), // May 2025
     verifyCode: "5597Q6W8GJUA",
     distinctionLevel: "NORMAL"
@@ -103,6 +110,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-04-08").getTime(), // April 2025
     verifyCode: "NTXG9JJTTF52",
     distinctionLevel: "NORMAL"
@@ -116,6 +124,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-05-06").getTime(), // May 2025
     verifyCode: "VQEOXHNY7TP0",
     distinctionLevel: "NORMAL"
@@ -129,6 +138,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/6b/7dddea1b364f6a816dfc53891e6d14/160x60_Google.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2024-12-10").getTime(), // December 2024
     verifyCode: "JII8AO4I6CZ8",
     distinctionLevel: "NORMAL"
@@ -142,6 +152,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-06-30").getTime(), // June 2025
     verifyCode: "SDFEYRU3Z97X",
     distinctionLevel: "NORMAL"
@@ -155,6 +166,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-04-19").getTime(), // April 2025
     verifyCode: "ZRIWE35Y56B0",
     distinctionLevel: "NORMAL"
@@ -168,6 +180,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-05-04").getTime(), // May 2025
     verifyCode: "BUC1ZQ5XCPHN",
     distinctionLevel: "NORMAL"
@@ -181,6 +194,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-05-15").getTime(), // May 2025
     verifyCode: "G6NY9VILOI15",
     distinctionLevel: "NORMAL"
@@ -194,6 +208,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-04-04").getTime(), // April 2025
     verifyCode: "441CFN6V3JV2",
     distinctionLevel: "NORMAL"
@@ -207,6 +222,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-05-03").getTime(), // May 2025
     verifyCode: "OWGALBE4K4IE",
     distinctionLevel: "NORMAL"
@@ -220,6 +236,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-05-22").getTime(), // May 2025
     verifyCode: "TRYLY4MFL48C",
     distinctionLevel: "NORMAL"
@@ -233,6 +250,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/6b/7dddea1b364f6a816dfc53891e6d14/160x60_Google.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2024-06-14").getTime(), // June 2024
     verifyCode: "FXQDD35WENEA",
     distinctionLevel: "NORMAL"
@@ -246,6 +264,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/6b/7dddea1b364f6a816dfc53891e6d14/160x60_Google.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-01-09").getTime(), // January 2025
     verifyCode: "6SNJCKCQOU68",
     distinctionLevel: "NORMAL"
@@ -259,6 +278,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/db/b2724c5c344646afcb9a30974615ab/160-x-60-reg.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-07-11").getTime(), // July 2025
     verifyCode: "1DNY9CO7AWTN",
     distinctionLevel: "NORMAL"
@@ -272,6 +292,7 @@ export const rawCertifications: Certification[] = [
         logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
       }
     ],
+    provider: "coursera",
     completionDate: new Date("2025-04-22").getTime(), // April 2025
     verifyCode: "XMEUEOYVYR7K",
     distinctionLevel: "NORMAL"
@@ -285,9 +306,9 @@ export const rawCertifications: Certification[] = [
           logo: "https://cert.efset.org/_next/static/media/logo.06bf8183.svg"
         }
     ],
+      provider: "efset",
       completionDate: new Date("2024-07-01").getTime(), // July 2024
       verifyCode: "oSFuP1",
-      verificationUrl: "https://cert.efset.org/oSFuP1",
       distinctionLevel: "NORMAL"
     }
 ];

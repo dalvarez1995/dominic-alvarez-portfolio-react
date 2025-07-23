@@ -7,6 +7,7 @@ export const rawSpecializations: Specialization[] = [
     specializationId: "Yz1bhic5RgOCVeRK1uxdXQ",
     name: "Microsoft Front-End Developer",
     partnerNames: ["Microsoft"],
+    provider: "coursera-specialization",
     completionDate: new Date("2025-07-10").getTime(), // July 2025
     verifyCode: "6PRWOAM6GOSD"
   },
@@ -14,6 +15,7 @@ export const rawSpecializations: Specialization[] = [
     specializationId: "--I-GVG8TjSxWxqmqcbomg",
     name: "Microsoft Back-End Developer",
     partnerNames: ["Microsoft"],
+    provider: "coursera-specialization",
     completionDate: new Date("2025-05-15").getTime(), // May 2025
     verifyCode: "Q3M1MX5F7K08"
   },
@@ -21,6 +23,7 @@ export const rawSpecializations: Specialization[] = [
     specializationId: "wpv0v6AuR1GOWiDmKrSrKA",
     name: "Microsoft Full-Stack Developer",
     partnerNames: ["Microsoft"],
+    provider: "coursera-specialization",
     completionDate: new Date("2025-05-08").getTime(), // May 2025
     verifyCode: "YG3NUB7FQWMK"
   },
