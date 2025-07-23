@@ -5,11 +5,18 @@ import type { ProviderConfig, VerificationConfig } from '../types/education.type
  * Supports multiple providers and custom URL patterns
  */
 export const VERIFICATION_PROVIDERS: ProviderConfig = {
+  //ef set
+  efset: {
+    baseUrl: 'https://www.efset.org',
+    urlPattern: 'https://cert.efset.org/{verifyCode}',
+    displayName: 'EF Standard English Test',
+    icon: 'fas fa-check-circle'
+  },
   coursera: {
     baseUrl: 'https://coursera.org',
     urlPattern: 'https://coursera.org/verify/{verifyCode}',
     displayName: 'Coursera',
-    icon: 'fas fa-external-link-alt'
+    icon: 'fas fa-graduation-cap'
   },
   'coursera-specialization': {
     baseUrl: 'https://www.coursera.org',
