@@ -310,7 +310,35 @@ export const rawCertifications: Certification[] = [
       completionDate: new Date("2024-07-01").getTime(), // July 2024
       verifyCode: "oSFuP1",
       distinctionLevel: "NORMAL"
-    }
+  },
+  {
+    courseId: "So1rPaCBEeyFDhLpwtOZqw",
+    name: "Programming with JavaScript",
+    partners: [
+      {
+        name: "Meta",
+        logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/db/b2724c5c344646afcb9a30974615ab/160-x-60-reg.png"
+      }
+    ],
+    provider: "coursera",
+    completionDate: new Date("2025-07-25").getTime(), // July 2025
+    verifyCode: "KCZHFXZQVFXH",
+    distinctionLevel: "NORMAL"
+  },
+  {
+    courseId: "ERIzRKCGEeyFDhLpwtOZqw",
+    name: "Version Control",
+    partners: [
+      {
+        name: "Meta",
+        logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/db/b2724c5c344646afcb9a30974615ab/160-x-60-reg.png"
+      }
+    ],
+    provider: "coursera",
+    completionDate: new Date("2025-08-26").getTime(), // July 2025
+    verifyCode: "WGE1GVMVWKIY",
+    distinctionLevel: "NORMAL"
+  },
 ];
 
 // Enhanced certification data with computed properties
