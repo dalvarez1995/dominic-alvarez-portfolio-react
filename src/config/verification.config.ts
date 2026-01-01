@@ -21,7 +21,7 @@ export const VERIFICATION_PROVIDERS: ProviderConfig = {
   'coursera-specialization': {
     baseUrl: 'https://www.coursera.org',
     urlPattern: 'https://www.coursera.org/account/accomplishments/professional-cert/{verifyCode}',
-    displayName: 'Coursera Professional Certificate',
+    displayName: 'Coursera',
     icon: 'fas fa-trophy'
   },
   udemy: {

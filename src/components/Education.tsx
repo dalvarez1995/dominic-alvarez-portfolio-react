@@ -443,9 +443,9 @@ const Education: React.FC<EducationProps> = ({
                 >
                   {/* Header */}
                   <div className="flex items-start space-x-4 mb-6">
-                    <div className="w-16 h-16 bg-linear-to-r from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 flex-shrink-0">
+                    {/* <div className="w-16 h-16 bg-linear-to-r from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 flex-shrink-0">
                       <i className="fas fa-certificate text-white text-2xl group-hover:animate-pulse"></i>
-                    </div>
+                    </div> */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center space-x-2 mb-2">
                         {cert.partners.map((partner, partnerIndex) => (
