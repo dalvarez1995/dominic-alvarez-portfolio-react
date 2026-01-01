@@ -27,12 +27,18 @@ const Hero: React.FC<HeroProps> = ({
 }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [codeLines, setCodeLines] = useState([
-    '{ "developer": "passionate" }',
-    'const skills = ["React", "TypeScript"];',
-    'function createMagic() { return innovation; }',
-    'while(learning) { keep.coding(); }',
-    'import dreams from "reality";',
-    'export const success = true;'
+    'class TechLead extends Developer { mindset = "growth"; }',
+    'await Promise.all([frontend, backend, leadership]);',
+    'const stack = { react: "⚛️", dotnet: "💜", azure: "☁️" };',
+    'git commit -m "feat: turning coffee into code ☕→💻"',
+    'SELECT innovation FROM ideas WHERE passion = 100;',
+    '// 🎮 ↑↑↓↓←→←→BA — You found the secret!',
+    'docker run -d --name dominic -p 80:80 tech-lead:latest',
+    'const life = { code: true, learn: true, repeat: "∞" };',
+    'npm run build:amazing-products --with-love 💙',
+    'try { exceed(expectations); } catch { never; }',
+    'interface Success { hardWork: boolean; passion: "unlimited"; }',
+    'kubectl apply -f dreams.yaml --namespace=reality 🚀'
   ]);
 
   useEffect(() => {
@@ -121,26 +127,27 @@ const Hero: React.FC<HeroProps> = ({
       </div>
 
       {/* Floating Code Rain */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {codeLines.map((line, index) => (
           <motion.div
             key={`${line}-${index}`}
-            className="absolute font-mono text-xs text-primary-300/20 whitespace-nowrap"
+            className="absolute font-mono text-sm md:text-base text-primary-200/40 whitespace-nowrap drop-shadow-[0_0_8px_rgba(59,130,246,0.3)]"
             style={{
-              left: `${10 + (index * 15)}%`,
-              top: `${20 + (index * 10)}%`,
+              left: `${5 + (index * 8)}%`,
+              top: `${15 + (index * 7)}%`,
             }}
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ 
-              opacity: [0, 1, 1, 0],
-              y: [0, 20, 20, 40],
-              x: [0, Math.sin(index) * 10]
+              opacity: [0, 0.6, 0.6, 0.6, 0],
+              y: [0, 10, 10, 10, 30],
+              x: [0, Math.sin(index) * 5, Math.sin(index) * 5, 0]
             }}
             transition={{
-              duration: 4,
+              duration: 12,
               repeat: Infinity,
-              delay: index * 0.5,
-              ease: "easeInOut"
+              delay: index * 1.2,
+              ease: "easeInOut",
+              times: [0, 0.1, 0.5, 0.9, 1]
             }}
           >
             {line}
