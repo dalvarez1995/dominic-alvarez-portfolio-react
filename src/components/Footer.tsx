@@ -58,7 +58,7 @@ export default function Footer() {
           {/* Copyright */}
           <div className="border-t border-gray-800 pt-8 animate-fade-in-up stagger-8">
             <p className="text-gray-400 text-sm hover:text-gray-300 transition-all duration-300">
-              &copy; {currentYear} {personal.name}. All rights reserved.
+              &copy; {currentYear} DomalTech. All rights reserved.
             </p>
           </div>
         </div>
