@@ -27,18 +27,12 @@ const Hero: React.FC<HeroProps> = ({
 }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [codeLines, setCodeLines] = useState([
-    'class TechLead extends Developer { mindset = "growth"; }',
-    'await Promise.all([frontend, backend, leadership]);',
-    'const stack = { react: "⚛️", dotnet: "💜", azure: "☁️" };',
-    'git commit -m "feat: turning coffee into code ☕→💻"',
-    'SELECT innovation FROM ideas WHERE passion = 100;',
-    '// 🎮 ↑↑↓↓←→←→BA — You found the secret!',
-    'docker run -d --name dominic -p 80:80 tech-lead:latest',
-    'const life = { code: true, learn: true, repeat: "∞" };',
-    'npm run build:amazing-products --with-love 💙',
-    'try { exceed(expectations); } catch { never; }',
-    'interface Success { hardWork: boolean; passion: "unlimited"; }',
-    'kubectl apply -f dreams.yaml --namespace=reality 🚀'
+    'const stack = { backend: ".NET, NestJS", frontend: "React, Angular", cloud: "Azure, Coolify" };',
+    'await Promise.all([architect, lead, ship]);',
+    'interface Engineer { mindset: "ownership"; bias: "to action"; }',
+    'kubectl rollout status deployment/syncita --watch',
+    'git commit -m "feat(syncita): production-ready multi-tenant"',
+    'SELECT impact FROM work WHERE craft = true;'
   ]);
 
   useEffect(() => {
@@ -80,72 +74,70 @@ const Hero: React.FC<HeroProps> = ({
   return (
     <section 
       id="home" 
-      className={`relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 ${className}`}
+      className={`relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 ${className}`}
     >
       {/* Animated Particle Network */}
       <div className="absolute inset-0">
-        {[...Array(25)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-primary-400 rounded-full opacity-30"
+            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-20"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              x: [0, Math.random() * 100 - 50],
-              y: [0, Math.random() * 100 - 50],
-              opacity: [0.1, 0.8, 0.1],
-              scale: [1, 1.5, 1]
+              x: [0, Math.random() * 60 - 30],
+              y: [0, Math.random() * 60 - 30],
+              opacity: [0.05, 0.4, 0.05],
             }}
             transition={{
-              duration: Math.random() * 10 + 5,
+              duration: Math.random() * 10 + 8,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: Math.random() * 2
+              delay: Math.random() * 3
             }}
           />
         ))}
       </div>
 
       {/* Dynamic Grid Background */}
-      <div className="absolute inset-0 opacity-15">
+      <div className="absolute inset-0 opacity-10">
         <div 
           className="absolute inset-0"
           style={{
-            background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(59, 130, 246, 0.2) 0%, transparent 50%)`
+            background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(34, 211, 238, 0.15) 0%, transparent 50%)`
           }}
         />
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.15) 1px, transparent 1px)
+            linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
           animation: 'grid-move 20s linear infinite'
         }} />
       </div>
 
-      {/* Floating Code Rain */}
+      {/* Floating Code Lines */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {codeLines.map((line, index) => (
           <motion.div
             key={`${line}-${index}`}
-            className="absolute font-mono text-sm md:text-base text-primary-200/40 whitespace-nowrap drop-shadow-[0_0_8px_rgba(59,130,246,0.3)]"
+            className="absolute font-mono text-sm text-cyan-300/25 whitespace-nowrap"
             style={{
-              left: `${5 + (index * 8)}%`,
-              top: `${15 + (index * 7)}%`,
+              left: `${3 + (index * 15)}%`,
+              top: `${15 + (index * 12)}%`,
             }}
             initial={{ opacity: 0, y: -10 }}
             animate={{ 
-              opacity: [0, 0.6, 0.6, 0.6, 0],
-              y: [0, 10, 10, 10, 30],
-              x: [0, Math.sin(index) * 5, Math.sin(index) * 5, 0]
+              opacity: [0, 0.5, 0.5, 0.5, 0],
+              y: [0, 8, 8, 8, 20],
             }}
             transition={{
-              duration: 12,
+              duration: 14,
               repeat: Infinity,
-              delay: index * 1.2,
+              delay: index * 1.8,
               ease: "easeInOut",
               times: [0, 0.1, 0.5, 0.9, 1]
             }}
@@ -177,143 +169,34 @@ const Hero: React.FC<HeroProps> = ({
         />
       </div>
 
-      {/* Binary Rain Effect */}
-      <div className="absolute inset-0 overflow-hidden opacity-10">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute font-mono text-xs text-primary-300 leading-none"
-            style={{
-              left: `${i * 5}%`,
-              fontSize: '8px'
-            }}
-            animate={{
-              y: ['-100vh', '100vh']
-            }}
-            transition={{
-              duration: Math.random() * 10 + 5,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "linear"
-            }}
-          >
-            {[...Array(50)].map((_, j) => (
-              <div key={j} style={{ animationDelay: `${j * 0.1}s` }}>
-                {Math.random() > 0.5 ? '1' : '0'}
-              </div>
-            ))}
-          </motion.div>
-        ))}
-      </div>
 
-      {/* Scanning Lines */}
-      <div className="absolute inset-0 overflow-hidden opacity-20">
-        <motion.div
-          className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-primary-400 to-transparent"
-          animate={{
-            y: ['-2px', '100vh']
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-accent-400 to-transparent"
-          animate={{
-            y: ['-2px', '100vh']
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            delay: 1.5,
-            ease: "easeInOut"
-          }}
-        />
-      </div>
 
       {/* Glowing Orbs */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 pointer-events-none">
         <motion.div
-          className="absolute top-20 right-20 w-2 h-2 bg-primary-400 rounded-full shadow-lg"
+          className="absolute top-20 right-20 w-2 h-2 bg-cyan-400 rounded-full shadow-lg"
           animate={{
             scale: [1, 2, 1],
-            opacity: [0.3, 1, 0.3],
-            boxShadow: [
-              '0 0 10px rgba(59, 130, 246, 0.3)',
-              '0 0 30px rgba(59, 130, 246, 0.8)',
-              '0 0 10px rgba(59, 130, 246, 0.3)'
-            ]
+            opacity: [0.3, 0.8, 0.3],
           }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-32 left-16 w-1.5 h-1.5 bg-accent-400 rounded-full shadow-lg"
+          className="absolute bottom-32 left-16 w-1.5 h-1.5 bg-cyan-300 rounded-full shadow-lg"
           animate={{
             scale: [1, 1.8, 1],
-            opacity: [0.4, 1, 0.4],
-            boxShadow: [
-              '0 0 8px rgba(16, 185, 129, 0.3)',
-              '0 0 25px rgba(16, 185, 129, 0.8)',
-              '0 0 8px rgba(16, 185, 129, 0.3)'
-            ]
+            opacity: [0.2, 0.7, 0.2],
           }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            delay: 0.5,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/3 w-1 h-1 bg-primary-300 rounded-full shadow-lg"
-          animate={{
-            scale: [1, 2.5, 1],
-            opacity: [0.2, 0.8, 0.2],
-            boxShadow: [
-              '0 0 6px rgba(147, 197, 253, 0.3)',
-              '0 0 20px rgba(147, 197, 253, 0.8)',
-              '0 0 6px rgba(147, 197, 253, 0.3)'
-            ]
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            delay: 1,
-            ease: "easeInOut"
-          }}
+          transition={{ duration: 2, repeat: Infinity, delay: 0.8, ease: "easeInOut" }}
         />
       </div>
 
-      {/* Data Stream */}
-      <div className="absolute inset-0 overflow-hidden opacity-15">
+      {/* Scanning Line */}
+      <div className="absolute inset-0 overflow-hidden opacity-15 pointer-events-none">
         <motion.div
-          className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-transparent via-primary-400 to-transparent"
-          animate={{
-            x: ['0vw', '100vw']
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-transparent via-accent-400 to-transparent"
-          animate={{
-            x: ['0vw', '100vw']
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            delay: 2,
-            ease: "linear"
-          }}
+          className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+          animate={{ y: ['-2px', '100vh'] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
       
@@ -359,10 +242,15 @@ const Hero: React.FC<HeroProps> = ({
               className="text-lg md:text-xl text-slate-300 leading-relaxed animate-fade-in-up hover:text-white transition-all duration-300 font-light" 
               style={{animationDelay: '0.8s'}}
               dangerouslySetInnerHTML={{
-                __html: description.replace(
-                  /\*\*(.*?)\*\*/g, 
-                  '<span class="font-semibold bg-gradient-to-r from-primary-300 to-accent-300 bg-clip-text text-transparent">$1</span>'
-                )
+                __html: description
+                  .replace(
+                    /\[([^\]]+)\]\(([^)]+)\)/g,
+                    '<a href="$2" target="_blank" rel="noopener noreferrer" class="font-semibold bg-gradient-to-r from-cyan-300 to-cyan-200 bg-clip-text text-transparent hover:from-cyan-200 hover:to-white transition-all duration-300 underline decoration-cyan-400/40 hover:decoration-cyan-300 underline-offset-4">$1</a>'
+                  )
+                  .replace(
+                    /\*\*(.*?)\*\*/g, 
+                    '<span class="font-semibold bg-gradient-to-r from-primary-300 to-accent-300 bg-clip-text text-transparent">$1</span>'
+                  )
               }}
             />
           </div>
@@ -373,10 +261,10 @@ const Hero: React.FC<HeroProps> = ({
               <button
                 key={index}
                 onClick={() => scrollToSection(button.href)}
-                className={`group relative inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-base overflow-hidden transition-all duration-500 transform hover:scale-105 ${
+                className={`group relative inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-base overflow-hidden transition-all duration-300 transform hover:scale-[1.02] ${
                   button.type === 'primary'
-                    ? 'bg-gradient-to-r from-primary-500 to-accent-600 text-white shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/40 hover:from-accent-600 hover:to-primary-500'
-                    : 'border-2 border-primary-400 text-primary-400 hover:bg-gradient-to-r hover:from-primary-500 hover:to-accent-600 hover:text-white hover:border-transparent'
+                    ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 text-white shadow-lg shadow-cyan-500/25 hover:shadow-xl hover:shadow-cyan-500/40 hover:from-cyan-400 hover:to-cyan-500'
+                    : 'border-2 border-cyan-400 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-300'
                 }`}
                 style={{animationDelay: `${1.2 + index * 0.1}s`}}
               >

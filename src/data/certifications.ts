@@ -242,7 +242,7 @@ export const rawCertifications: Certification[] = [
     distinctionLevel: "NORMAL"
   },
   {
-    courseId: "zuiMQb7KEeuxGwpcZwh55w",
+    courseId: "l8n9WYrEe-EPwr_9XyAcQ",
     name: "Create Serverless Applications",
     partners: [
       {
@@ -253,6 +253,20 @@ export const rawCertifications: Certification[] = [
     provider: "coursera",
     completionDate: new Date("2025-11-17").getTime(), // November 2025
     verifyCode: "HFU8BP8SOKIR",
+    distinctionLevel: "NORMAL"
+  },
+  {
+    courseId: "zuiMQb7KEeuxGwpcZwh55w",
+    name: "Connect Your Services with Microsoft Azure Service Bus",
+    partners: [
+      {
+        name: "Microsoft",
+        logo: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/74/ec16a1f2b648918da1b8abec559055/msft_02Nov.png"
+      }
+    ],
+    provider: "coursera",
+    completionDate: new Date("2026-04-11").getTime(), // April 2026
+    verifyCode: "QMKCKG22FO05",
     distinctionLevel: "NORMAL"
   },
   {

@@ -5,6 +5,11 @@ export interface Project {
   category: string;
   description: string;
   image?: string;
+  logo?: string;
+  screenshots?: string[];
+  screenshotLabels?: string[];
+  flagship?: boolean;
+  responsibilities?: string[];
   technologies: Technology[];
   features: ProjectFeature[];
   company?: CompanyInfo;

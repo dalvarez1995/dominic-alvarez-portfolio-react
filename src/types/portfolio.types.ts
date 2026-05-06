@@ -10,7 +10,7 @@ export interface PortfolioConfig {
     name: string;
     title: string;
     shortDescription: string;
-    profileImage: string;
+    profileImage?: string;
     availability: {
       status: boolean;
       text: string;
@@ -43,7 +43,7 @@ export interface PortfolioConfig {
     description: string[];
     stats: StatItem[];
     skills: SkillCategory[];
-    profileImage: string;
+    profileImage?: string;
     location?: LocationInfo;
     languages?: LanguageInfo[];
   };

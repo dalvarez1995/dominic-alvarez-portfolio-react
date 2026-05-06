@@ -4,9 +4,8 @@ import type { PortfolioConfig } from '../types/portfolio.types';
 export const defaultPortfolioConfig: PortfolioConfig = {
   personal: {
     name: "Dominic Alvarez Robles",
-    title: "Software Technical Lead & Developer",
-    shortDescription: "I create innovative solutions across web, desktop, and mobile platforms with a focus on technical leadership and cutting-edge technology.",
-    profileImage: "/images/profile-photo.jpg",
+    title: "Software Technical Lead & Founder",
+    shortDescription: "I architect, build, and ship production SaaS — from multi-tenant backends to mobile apps.",
     availability: {
       status: true,
       text: "🚀 Available for new opportunities"
@@ -33,9 +32,9 @@ export const defaultPortfolioConfig: PortfolioConfig = {
   ],
 
   hero: {
-    greeting: "Software Technical",
-    title: ["Lead & Developer"],
-    description: "I create innovative solutions across web, desktop, and mobile platforms with a focus on technical leadership and cutting-edge technology.",
+    greeting: "Software Technical Lead",
+    title: ["Builder & Founder"],
+    description: "I architect, build, and ship production SaaS — from multi-tenant backends to mobile apps. Currently founder & creator of [Syncita](https://syncita.app), a production platform built end-to-end.",
     buttons: [
       { text: "View My Work", href: "#projects", type: "primary", icon: "fas fa-arrow-right" },
       { text: "Get In Touch", href: "#contact", type: "secondary", icon: "fas fa-paper-plane" }
@@ -46,11 +45,11 @@ export const defaultPortfolioConfig: PortfolioConfig = {
 
   about: {
     description: [
-      "I am a passionate Software Technical Lead who believes that products should not only perform excellently but also be visually appealing and easy to use for end users. With over 6 years of experience in enterprise software development, I specialize in creating scalable solutions using modern technologies.",
-      "My journey in tech has taken me through exciting projects ranging from enterprise ERP migrations to cutting-edge document management systems powered by AI and OCR technology."
+      "Software Technical Lead with deep expertise in enterprise full-stack development, currently building [Syncita](https://syncita.app) — a multi-tenant SaaS platform — as founder and sole architect. I obsess over both the engineering craft and the user experience.",
+      "Over years working across .NET, NestJS, React, React Native, and self-hosted DevOps stacks, I've shipped enterprise migrations, payment orchestration systems, and now my own SaaS product in production."
     ],
     stats: [
-      { value: "6+", label: "Years Exp", description: "Professional experience" },
+      { value: "7+", label: "Years Exp", description: "Professional experience" },
       { value: "20+", label: "Projects", description: "Completed successfully" },
       { value: "0", label: "Certificates", description: "Professional certifications" } // Will be computed dynamically
     ],
@@ -59,16 +58,15 @@ export const defaultPortfolioConfig: PortfolioConfig = {
         name: "Frontend Excellence",
         icon: "fas fa-code",
         color: "primary",
-        skills: ["React", "Angular", "Vue", "TypeScript"]
+        skills: ["React", "Angular", "Vue", "TypeScript", "Blazor"]
       },
       {
         name: "Backend Mastery",
         icon: "fas fa-server",
         color: "accent",
-        skills: [".NET Core", "Node.js", "SQL Server", "Azure"]
+        skills: [".NET Core", "Node.js", "SQL Server", "Azure", "AWS"]
       }
     ],
-    profileImage: "/images/profile-photo.jpg",
     location: {
       country: "Ecuador",
       countryCode: "EC", // ISO 3166-1 alpha-2 code for Ecuador
@@ -98,62 +96,112 @@ export const defaultPortfolioConfig: PortfolioConfig = {
     description: "Enterprise solutions that drive business transformation and innovation",
     featured: [
       {
+        id: "syncita",
+        title: "Syncita",
+        category: "SaaS Platform · Founder",
+        description: "Founder & creator. Multi-tenant SaaS for appointment management and treatment-based businesses (clinics, salons, therapists). Production system serving real customers — full-stack TypeScript monorepo with NestJS API, React 19 frontend, PostgreSQL multi-tenant DB, Redis throttling, AI agent integration via Langfuse, and self-hosted infrastructure on Coolify.",
+        logo: "/images/syncita/syncita-logo-dark.webp",
+        flagship: true,
+        responsibilities: [
+          "Sole architect & founder — product, backend, frontend, and DevOps all in one",
+          "Cloud infrastructure on AWS (S3 for storage, SES for transactional email) + self-hosted via Coolify",
+          "Online payment processing with Payphone: subscriptions, billing cycles, trial periods, grace periods, and webhook integration",
+          "AI integration: WhatsApp assistant with LLM tool-calling agents, full observability via Langfuse tracing",
+          "NestJS event-driven architecture: Bull queues, background jobs, WebSocket gateways, cron tasks",
+          "Row-level multi-tenant isolation: 15+ business modules with per-tenant Prisma guards",
+          "WhatsApp Business API for automated reminders, confirmations, and AI-powered replies",
+          "End-to-end typed error system with structured codes (backend → frontend registry)"
+        ],
+        technologies: [
+          { name: "NestJS 11", color: "accent" },
+          { name: "React 19", color: "accent" },
+          { name: "TypeScript", color: "primary" },
+          { name: "PostgreSQL", color: "primary" },
+          { name: "Redis", color: "primary" },
+          { name: "Prisma", color: "primary" },
+          { name: "Tailwind v4", color: "accent" },
+          { name: "shadcn/ui", color: "accent" },
+          { name: "Langfuse", color: "accent" },
+          { name: "Coolify", color: "primary" },
+          { name: "Docker", color: "primary" }
+        ],
+        features: [
+          { icon: "fas fa-building", title: "Multi-tenant", description: "Workspace isolation", color: "accent" },
+          { icon: "fas fa-bolt", title: "Real-time", description: "Redis + queues", color: "accent" },
+          { icon: "fas fa-robot", title: "AI Agents", description: "Langfuse + LLM routing", color: "accent" },
+          { icon: "fas fa-shield-halved", title: "Production", description: "Self-hosted, observable", color: "accent" }
+        ],
+        type: "personal",
+        links: [
+          { type: "demo", url: "https://syncita.app" }
+        ]
+      },
+      {
         id: "payment-controller",
         title: "Payment Controller",
-        category: "Payment Processing",
-        description: "Architected a comprehensive payment orchestration service managing real-time communication between POS terminals and Servientrega's web platform. Built with modular architecture featuring Web App, Web API with WebSocket server, and Desktop client.",
+        category: "Payment Processing · Enterprise",
+        description: "Architected a payment orchestration service for Servientrega S.A., managing real-time communication between POS terminals and the corporate web platform. Modular 3-tier architecture: Web App + Web API with WebSocket server + WPF Desktop client.",
+        screenshots: [
+          "/images/payment-controller/login.webp",
+          "/images/payment-controller/dashboard.webp",
+          "/images/payment-controller/desktop.webp",
+          "/images/payment-controller/transaction.webp"
+        ],
+        screenshotLabels: [
+          "Login screen — secure access for operators and administrators",
+          "Dashboard — real-time transaction monitoring across all POS terminals",
+          "WPF Desktop client — local agent bridging POS hardware to the web platform",
+          "Transaction detail — full audit trail with status, amount, and terminal info"
+        ],
         technologies: [
-          { name: ".NET 9", color: "primary" },
-          { name: "SignalR", color: "gray" },
-          { name: "WPF", color: "gray" }
+          { name: ".NET 9", color: "accent" },
+          { name: "SignalR", color: "primary" },
+          { name: "WPF", color: "primary" },
+          { name: "WebSocket", color: "primary" },
+          { name: "C#", color: "accent" }
         ],
         features: [
           { icon: "fas fa-bolt", title: "Real-time", description: "WebSocket sync", color: "accent" },
-          { icon: "fas fa-cube", title: "Modular", description: "3-tier design", color: "accent" }
+          { icon: "fas fa-cube", title: "Modular", description: "3-tier design", color: "accent" },
+          { icon: "fas fa-credit-card", title: "POS Bridge", description: "Terminal ↔ Web", color: "accent" },
+          { icon: "fas fa-shield", title: "Enterprise", description: "Servientrega scale", color: "accent" }
         ],
         company: {
           name: "Sismetic",
           logo: "/images/sismetic-logo-light.webp",
-          description: "Developed as Sismetic collaborator for Servientrega S.A"
-        },
-        type: "enterprise"
-      },
-      {
-        id: "document-manager",
-        title: "Export Document Manager",
-        category: "Document Management",
-        description: "Revolutionized document management for Nirsa S.A.'s export operations by implementing OCR technology and workflow automation, reducing processing time by 70% and improving accuracy.",
-        technologies: [
-          { name: ".NET Framework", color: "accent" },
-          { name: "SSR", color: "gray" },
-          { name: "OCR Technology", color: "gray" },
-          { name: "Workflow Automation", color: "gray" }
-        ],
-        features: [
-          { icon: "fas fa-clock", title: "70% Faster", description: "Process time", color: "primary" },
-          { icon: "fas fa-robot", title: "AI-Powered", description: "OCR integration", color: "primary" }
-        ],
-        company: {
-          name: "Sismetic",
-          logo: "/images/sismetic-logo-light.webp",
-          description: "Developed as Sismetic collaborator for Nirsa S.A."
+          description: "Developed as Sismetic collaborator for Servientrega S.A."
         },
         type: "enterprise"
       },
       {
         id: "fast-order-app",
-        title: "Fast Order App",
-        category: "Mobile Development",
-        description: "Complete restaurant order management system built as a monorepo with React Native 19, Node.js backend, and shared TypeScript library. Features optimistic UI, dual-ID system, and bidirectional mobile-desktop sync.",
-        image: "/images/fast-order-splash-dark.webp",
+        title: "Fast Order",
+        category: "Restaurant POS · Mobile",
+        description: "Restaurant order management system: monorepo with React Native 19, Node.js backend, and shared TypeScript library. Optimistic UI, dual-ID system for offline-first flow, and bidirectional mobile↔desktop sync. Built and tested in real restaurant operations.",
+        screenshots: [
+          "/images/fastorder/login.webp",
+          "/images/fastorder/order-tab.webp",
+          "/images/fastorder/table-selection.webp",
+          "/images/fastorder/split-bill.webp"
+        ],
+        screenshotLabels: [
+          "Login — staff authentication flow",
+          "Order tab — real-time item management with optimistic updates",
+          "Table selection — restaurant floor plan with live table status",
+          "Split bill — flexible payment splitting between multiple customers"
+        ],
         technologies: [
-          { name: "React Native 19", color: "blue" },
-          { name: "Node.js", color: "gray" },
-          { name: "Expo", color: "gray" }
+          { name: "React Native 19", color: "accent" },
+          { name: "Expo", color: "accent" },
+          { name: "Node.js", color: "primary" },
+          { name: "TypeScript", color: "primary" },
+          { name: "Monorepo", color: "primary" }
         ],
         features: [
-          { icon: "fas fa-sync", title: "Optimistic UI", description: "Instant updates", color: "blue" },
-          { icon: "fas fa-layer-group", title: "Monorepo", description: "Shared codebase", color: "blue" }
+          { icon: "fas fa-bolt", title: "Optimistic UI", description: "Instant updates", color: "accent" },
+          { icon: "fas fa-layer-group", title: "Monorepo", description: "Shared codebase", color: "accent" },
+          { icon: "fas fa-mobile-screen", title: "Offline-first", description: "Dual-ID sync", color: "accent" },
+          { icon: "fas fa-receipt", title: "Real-world", description: "Production tested", color: "accent" }
         ],
         type: "personal"
       }
@@ -182,28 +230,29 @@ export const defaultPortfolioConfig: PortfolioConfig = {
   theme: {
     colors: {
       primary: {
-        50: '#eff6ff',
-        100: '#dbeafe',
-        200: '#bfdbfe',
-        300: '#93c5fd',
-        400: '#60a5fa',
-        500: '#3b82f6',
-        600: '#2563eb',
-        700: '#1d4ed8',
-        800: '#1e40af',
-        900: '#1e3a8a'
+        50:  '#f8fafc',
+        100: '#f1f5f9',
+        200: '#e2e8f0',
+        300: '#cbd5e1',
+        400: '#94a3b8',
+        500: '#64748b',
+        600: '#475569',
+        700: '#334155',
+        800: '#1e293b',
+        900: '#0f172a',
+        950: '#020617'
       },
       accent: {
-        50: '#ecfdf5',
-        100: '#d1fae5',
-        200: '#a7f3d0',
-        300: '#6ee7b7',
-        400: '#34d399',
-        500: '#10b981',
-        600: '#059669',
-        700: '#047857',
-        800: '#065f46',
-        900: '#064e3b'
+        50:  '#ecfeff',
+        100: '#cffafe',
+        200: '#a5f3fc',
+        300: '#67e8f9',
+        400: '#22d3ee',
+        500: '#06b6d4',
+        600: '#0891b2',
+        700: '#0e7490',
+        800: '#155e75',
+        900: '#164e63'
       }
     },
     fonts: {
@@ -218,6 +267,7 @@ export const defaultPortfolioConfig: PortfolioConfig = {
     titleTemplate: "{name} - {role} | Portfolio", // Template for dynamic title generation
     description: "Portfolio of Dominic Alvarez Robles, showcasing expertise in .NET, enterprise solutions, and modern web development.",
     keywords: ["Software Developer", "Technical Lead", ".NET", "React", "Azure", "Full Stack"],
-    ogImage: "/images/profile-photo.jpg" // Open Graph image for social media sharing
+    ogImage: "/images/syncita/syncita-og.webp" // Open Graph image for social media sharing
   }
 };
+

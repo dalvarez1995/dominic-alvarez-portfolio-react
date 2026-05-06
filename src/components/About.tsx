@@ -3,14 +3,13 @@ import ReactCountryFlag from 'react-country-flag';
 import type { StatItem, SkillCategory, LocationInfo, LanguageInfo } from '../types/ui.types';
 import type { Certification, Specialization } from '../types/education.types';
 import { loadCertifications, loadSpecializations } from '../utils/educationData';
-import OptimizedProfileImage from './OptimizedProfileImage';
+import { getYearsOfExperience } from '../utils/experienceYears';
 
 interface AboutProps {
   title?: string;
   description: string[];
   stats: StatItem[];
   skills: SkillCategory[];
-  profileImage: string;
   location?: LocationInfo;
   languages?: LanguageInfo[];
   className?: string;
@@ -21,7 +20,6 @@ const About: React.FC<AboutProps> = ({
   description,
   stats,
   skills,
-  profileImage,
   location,
   languages,
   className = ''
@@ -55,14 +53,17 @@ const About: React.FC<AboutProps> = ({
   // Compute dynamic stats based on actual data
   const computedStats = useMemo(() => {
     const totalCredentials = allCertifications.length + allSpecializations.length;
+    const yearsExp = getYearsOfExperience();
     
-    // Update the certificates stat with real data, keep others from config
     return stats.map(stat => {
       if (stat.label === "Certificates") {
         return {
           ...stat,
           value: totalCredentials > 0 ? totalCredentials.toString() : stat.value
         };
+      }
+      if (stat.label === "Years Exp") {
+        return { ...stat, value: `${yearsExp}+` };
       }
       return stat;
     });
@@ -146,16 +147,17 @@ const About: React.FC<AboutProps> = ({
           <div className="lg:col-span-4 animate-fade-in stagger-6">
             {/* Profile Image & Info Card */}
             <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 group">
-              {/* Profile Image */}
+              {/* DA Monogram */}
               <div className="text-center mb-6">
-                <div className="relative inline-block group">
-                  <div className="absolute inset-0 bg-linear-to-r from-primary-600 to-accent-600 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300 animate-glow"></div>
-                  <OptimizedProfileImage 
-                    src={profileImage} 
-                    alt="Profile" 
-                    size="medium"
-                    className="relative animate-fade-in mx-auto"
-                  />
+                <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-gradient-to-br from-primary-800 to-primary-900 border border-accent-500/30 shadow-xl mx-auto">
+                  <span className="font-display text-3xl font-black bg-gradient-to-br from-accent-300 to-accent-500 bg-clip-text text-transparent select-none">
+                    DA
+                  </span>
+                  <div className="absolute inset-0 rounded-2xl ring-2 ring-accent-500/20"></div>
+                </div>
+                <div className="mt-3">
+                  <p className="text-sm font-semibold text-primary-700">Dominic Alvarez</p>
+                  <p className="text-xs text-primary-500">Software Technical Lead</p>
                 </div>
               </div>
 
@@ -277,9 +279,16 @@ const About: React.FC<AboutProps> = ({
               </div>
               <div className="prose prose-lg max-w-none">
                 {description.map((paragraph, index) => (
-                  <p key={index} className={`text-gray-700 leading-relaxed text-lg mb-6 animate-fade-in stagger-${12 + index} hover:text-gray-900 transition-all duration-300`}>
-                    {paragraph}
-                  </p>
+                  <p
+                    key={index}
+                    className={`text-gray-700 leading-relaxed text-lg mb-6 animate-fade-in stagger-${12 + index} hover:text-gray-900 transition-all duration-300`}
+                    dangerouslySetInnerHTML={{
+                      __html: paragraph.replace(
+                        /\[([^\]]+)\]\(([^)]+)\)/g,
+                        '<a href="$2" target="_blank" rel="noopener noreferrer" class="font-semibold text-accent-600 hover:text-accent-500 underline decoration-accent-400/40 hover:decoration-accent-500 underline-offset-4 transition-colors">$1</a>'
+                      )
+                    }}
+                  />
                 ))}
               </div>
             </div>

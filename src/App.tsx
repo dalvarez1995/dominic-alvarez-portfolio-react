@@ -153,7 +153,6 @@ function App() {
           description={config.about.description}
           stats={config.about.stats}
           skills={config.about.skills}
-          profileImage={config.about.profileImage}
           location={config.about.location}
           languages={config.about.languages}
         />
