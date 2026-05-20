@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import type { Project } from '../types/project.types';
 
 // ─── Lightbox ────────────────────────────────────────────────────────────────
@@ -239,8 +240,19 @@ interface SharedCardProps {
   getFeatureColor: (c: string) => string;
 }
 
-// Animated live-activity mockup for the Syncita flagship card
-const SyncitaLiveMockup: React.FC = () => {
+// Tabs-based animated mockup for the Syncita flagship card
+const SYNCITA_TABS = ['Dashboard', 'Agenda', 'IA', 'Pagos'] as const;
+
+const tabVariants: Variants = {
+  enter: { opacity: 0, y: 6 },
+  center: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -6 },
+};
+
+const SyncitaTabsMockup: React.FC = () => {
+  const [active, setActive] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState(false);
+
   // Sparkline path — sweeping upward trend
   const sparkPoints = [40, 35, 38, 30, 33, 25, 28, 18, 22, 14, 10, 6];
   const sparkW = 240;
@@ -253,11 +265,23 @@ const SyncitaLiveMockup: React.FC = () => {
     .join(' ');
   const sparkArea = `${sparkPath} L ${sparkW} ${sparkH} L 0 ${sparkH} Z`;
 
-  // Calendar — 7 columns × 4 rows, some "booked"
+  // Calendar data for Agenda tab
   const bookedCells = new Set([1, 3, 5, 8, 9, 12, 14, 17, 19, 22, 24, 25]);
 
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setActive(prev => (prev + 1) % SYNCITA_TABS.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       {/* Glow halo behind the mockup */}
       <div className="absolute -inset-6 bg-gradient-to-tr from-cyan-500/20 via-purple-500/10 to-emerald-500/20 blur-3xl opacity-60 rounded-[2rem] pointer-events-none" />
 
@@ -296,191 +320,271 @@ const SyncitaLiveMockup: React.FC = () => {
           </a>
         </div>
 
-        <div className="relative p-4 space-y-3">
-          {/* Hero revenue panel with sparkline */}
-          <div className="relative bg-gradient-to-br from-cyan-500/10 via-cyan-500/5 to-transparent border border-cyan-400/20 rounded-xl p-4 overflow-hidden">
-            <div className="relative z-10">
-              <div className="flex items-center justify-between mb-1">
-                <div className="text-[10px] text-cyan-300/70 uppercase tracking-wider font-semibold">
-                  Ingresos · Hoy
-                </div>
-                <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/30">
-                  <i className="fas fa-arrow-trend-up text-emerald-400 text-[9px]"></i>
-                  <span className="text-emerald-300 text-[10px] font-bold">+28.4%</span>
-                </div>
-              </div>
-              <div className="flex items-baseline gap-1.5 mb-1">
-                <span className="font-display font-black text-3xl text-white tracking-tight syncita-shimmer">
-                  $12,847
-                </span>
-                <span className="text-white/40 text-xs font-mono">.50</span>
-              </div>
-              <div className="text-[10px] text-white/40">vs $9,998 ayer</div>
-            </div>
-
-            {/* SVG sparkline */}
-            <svg
-              className="absolute inset-x-0 bottom-0 w-full h-14 pointer-events-none"
-              viewBox={`0 0 ${sparkW} ${sparkH}`}
-              preserveAspectRatio="none"
+        {/* Tab bar */}
+        <div className="relative flex px-1 border-b border-white/5 bg-slate-950/30">
+          {SYNCITA_TABS.map((tab, i) => (
+            <button
+              key={tab}
+              onClick={() => setActive(i)}
+              className={`relative px-3.5 py-2 text-[10px] font-semibold tracking-wide transition-colors duration-200 ${
+                active === i ? 'text-cyan-300' : 'text-white/35 hover:text-white/60'
+              }`}
             >
-              <defs>
-                <linearGradient id="sparkArea" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.45" />
-                  <stop offset="100%" stopColor="#22d3ee" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="sparkLine" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#0891b2" />
-                  <stop offset="100%" stopColor="#67e8f9" />
-                </linearGradient>
-              </defs>
-              <path d={sparkArea} fill="url(#sparkArea)" />
-              <path
-                className="syncita-spark-line"
-                d={sparkPath}
-                fill="none"
-                stroke="url(#sparkLine)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <circle className="syncita-spark-dot" cx={sparkW} cy={sparkPoints[sparkPoints.length - 1]} r="3.5" fill="#67e8f9">
-                <animate attributeName="r" values="3.5;5;3.5" dur="1.6s" repeatCount="indefinite" />
-              </circle>
-            </svg>
-          </div>
-
-          {/* Two-column row: AI chat + calendar */}
-          <div className="grid grid-cols-5 gap-3">
-            {/* AI conversation */}
-            <div className="col-span-3 bg-white/[0.03] border border-white/10 rounded-xl p-3 flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-5 h-5 rounded-md bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                    <i className="fas fa-robot text-white text-[9px]"></i>
-                  </div>
-                  <span className="text-white/80 text-[10px] font-semibold">Agente IA</span>
-                </div>
-                <span className="text-[9px] text-emerald-400 font-mono">● online</span>
-              </div>
-
-              {/* User message */}
-              <div className="flex justify-end">
-                <div className="max-w-[85%] bg-cyan-500/15 border border-cyan-400/20 rounded-lg rounded-tr-sm px-2.5 py-1.5">
-                  <p className="text-white/90 text-[10px] leading-tight">
-                    Quiero agendar para mañana 3pm
-                  </p>
-                </div>
-              </div>
-
-              {/* AI typing then reply */}
-              <div className="flex justify-start">
-                <div className="bg-white/[0.06] border border-white/10 rounded-lg rounded-tl-sm px-2.5 py-1.5 max-w-[85%]">
-                  <div className="syncita-typing-cycle">
-                    <p className="syncita-typing-msg text-white/85 text-[10px] leading-tight">
-                      ✓ Listo, María. Tu cita está confirmada para mañana 3:00 PM con Dr. López.
-                    </p>
-                    <div className="syncita-typing-dots flex items-center gap-1 py-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white/50 syncita-dot syncita-dot-1"></span>
-                      <span className="w-1.5 h-1.5 rounded-full bg-white/50 syncita-dot syncita-dot-2"></span>
-                      <span className="w-1.5 h-1.5 rounded-full bg-white/50 syncita-dot syncita-dot-3"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Calendar mini-grid */}
-            <div className="col-span-2 bg-white/[0.03] border border-white/10 rounded-xl p-3">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-white/80 text-[10px] font-semibold">Mayo</span>
-                <span className="text-[9px] text-white/40 font-mono">12 hoy</span>
-              </div>
-              <div className="grid grid-cols-7 gap-1 text-center mb-1">
-                {['L', 'M', 'X', 'J', 'V', 'S', 'D'].map((d, i) => (
-                  <span key={i} className="text-[8px] text-white/30 font-mono">
-                    {d}
-                  </span>
-                ))}
-              </div>
-              <div className="grid grid-cols-7 gap-1">
-                {Array.from({ length: 28 }).map((_, i) => {
-                  const isBooked = bookedCells.has(i);
-                  const isToday = i === 9;
-                  return (
-                    <div
-                      key={i}
-                      className={`relative aspect-square rounded-[3px] flex items-center justify-center text-[8px] font-mono transition-all ${
-                        isToday
-                          ? 'bg-cyan-400/30 border border-cyan-300 text-white font-bold'
-                          : isBooked
-                          ? 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-200'
-                          : 'bg-white/[0.04] border border-white/5 text-white/30'
-                      }`}
-                      style={{ animationDelay: `${i * 30}ms` }}
-                    >
-                      {i + 1}
-                      {isBooked && (
-                        <span
-                          className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0.5 h-0.5 rounded-full bg-emerald-400 syncita-cell-pulse"
-                          style={{ animationDelay: `${i * 200}ms` }}
-                        />
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom stats strip */}
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { icon: 'fa-calendar-check', label: 'Citas', value: '847', color: 'cyan' },
-              { icon: 'fa-comment-dots', label: 'WhatsApp', value: '1.2k', color: 'green' },
-              { icon: 'fa-bolt', label: 'IA replies', value: '124', color: 'purple' },
-            ].map((s, i) => (
-              <div
+              {tab}
+              {active === i && (
+                <motion.div
+                  layoutId="syncita-tab-bar"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 to-cyan-300 rounded-t-full"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
+              )}
+            </button>
+          ))}
+          {/* Progress indicator dots */}
+          <div className="ml-auto flex items-center gap-1 px-3">
+            {SYNCITA_TABS.map((_, i) => (
+              <button
                 key={i}
-                className="flex items-center gap-2 bg-white/[0.03] border border-white/10 rounded-lg px-2.5 py-2"
-              >
-                <div
-                  className={`w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 ${
-                    s.color === 'cyan'
-                      ? 'bg-cyan-500/15 text-cyan-300'
-                      : s.color === 'green'
-                      ? 'bg-emerald-500/15 text-emerald-300'
-                      : 'bg-purple-500/15 text-purple-300'
-                  }`}
-                >
-                  <i className={`fas ${s.icon} text-[11px]`}></i>
-                </div>
-                <div className="min-w-0 leading-tight">
-                  <div className="text-white font-bold text-sm font-display">{s.value}</div>
-                  <div className="text-[9px] text-white/40 uppercase tracking-wider">{s.label}</div>
-                </div>
-              </div>
+                onClick={() => setActive(i)}
+                className={`w-1 h-1 rounded-full transition-all duration-300 ${
+                  active === i ? 'bg-cyan-400 w-3' : 'bg-white/20'
+                }`}
+              />
             ))}
           </div>
         </div>
 
-        {/* Floating notification toast */}
-        <div className="syncita-toast pointer-events-none absolute top-14 right-3 z-20">
-          <div className="flex items-center gap-2 bg-slate-900/95 backdrop-blur-md border border-emerald-400/40 rounded-xl shadow-2xl shadow-emerald-500/20 px-3 py-2 max-w-[220px]">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center flex-shrink-0">
-              <i className="fas fa-check text-emerald-400 text-xs"></i>
-            </div>
-            <div className="min-w-0 leading-tight">
-              <div className="text-white text-[11px] font-semibold truncate">Pago recibido</div>
-              <div className="text-emerald-300 text-[10px] font-mono">+$45.00 · Payphone</div>
-            </div>
-          </div>
+        {/* Tab content */}
+        <div className="relative p-4" style={{ minHeight: 232 }}>
+          <AnimatePresence mode="wait">
+
+            {/* ── Dashboard ── */}
+            {active === 0 && (
+              <motion.div key="dashboard" variants={tabVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.22 }} className="space-y-3">
+                {/* Revenue panel */}
+                <div className="relative bg-gradient-to-br from-cyan-500/10 via-cyan-500/5 to-transparent border border-cyan-400/20 rounded-xl p-4 overflow-hidden">
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="text-[10px] text-cyan-300/70 uppercase tracking-wider font-semibold">Ingresos · Hoy</div>
+                      <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/30">
+                        <i className="fas fa-arrow-trend-up text-emerald-400 text-[9px]"></i>
+                        <span className="text-emerald-300 text-[10px] font-bold">+28.4%</span>
+                      </div>
+                    </div>
+                    <div className="flex items-baseline gap-1.5 mb-1">
+                      <span className="font-display font-black text-3xl text-white tracking-tight syncita-shimmer">$12,847</span>
+                      <span className="text-white/40 text-xs font-mono">.50</span>
+                    </div>
+                    <div className="text-[10px] text-white/40">vs $9,998 ayer</div>
+                  </div>
+                  <svg className="absolute inset-x-0 bottom-0 w-full h-14 pointer-events-none" viewBox={`0 0 ${sparkW} ${sparkH}`} preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="st-sparkArea" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.45" />
+                        <stop offset="100%" stopColor="#22d3ee" stopOpacity="0" />
+                      </linearGradient>
+                      <linearGradient id="st-sparkLine" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#0891b2" />
+                        <stop offset="100%" stopColor="#67e8f9" />
+                      </linearGradient>
+                    </defs>
+                    <path d={sparkArea} fill="url(#st-sparkArea)" />
+                    <path className="syncita-spark-line" d={sparkPath} fill="none" stroke="url(#st-sparkLine)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle className="syncita-spark-dot" cx={sparkW} cy={sparkPoints[sparkPoints.length - 1]} r="3.5" fill="#67e8f9">
+                      <animate attributeName="r" values="3.5;5;3.5" dur="1.6s" repeatCount="indefinite" />
+                    </circle>
+                  </svg>
+                </div>
+                {/* Stats strip */}
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { icon: 'fa-calendar-check', label: 'Citas hoy', value: '847', color: 'cyan' },
+                    { icon: 'fa-comment-dots', label: 'WhatsApp', value: '1.2k', color: 'green' },
+                    { icon: 'fa-bolt', label: 'IA replies', value: '124', color: 'purple' },
+                  ].map((s, i) => (
+                    <div key={i} className="flex items-center gap-2 bg-white/[0.03] border border-white/10 rounded-lg px-2.5 py-2">
+                      <div className={`w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 ${s.color === 'cyan' ? 'bg-cyan-500/15 text-cyan-300' : s.color === 'green' ? 'bg-emerald-500/15 text-emerald-300' : 'bg-purple-500/15 text-purple-300'}`}>
+                        <i className={`fas ${s.icon} text-[11px]`}></i>
+                      </div>
+                      <div className="min-w-0 leading-tight">
+                        <div className="text-white font-bold text-sm font-display">{s.value}</div>
+                        <div className="text-[9px] text-white/40 uppercase tracking-wider">{s.label}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* ── Agenda ── */}
+            {active === 1 && (
+              <motion.div key="agenda" variants={tabVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.22 }} className="space-y-3">
+                <div className="grid grid-cols-5 gap-3">
+                  {/* Calendar */}
+                  <div className="col-span-2 bg-white/[0.03] border border-white/10 rounded-xl p-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-white/80 text-[10px] font-semibold">Mayo 2025</span>
+                      <span className="text-[9px] text-cyan-400 font-mono bg-cyan-400/10 px-1.5 py-0.5 rounded">hoy 12</span>
+                    </div>
+                    <div className="grid grid-cols-7 gap-0.5 text-center mb-1">
+                      {['L', 'M', 'X', 'J', 'V', 'S', 'D'].map((d, i) => (
+                        <span key={i} className="text-[7px] text-white/30 font-mono">{d}</span>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-7 gap-0.5">
+                      {Array.from({ length: 28 }).map((_, i) => {
+                        const isBooked = bookedCells.has(i);
+                        const isToday = i === 9;
+                        return (
+                          <div
+                            key={i}
+                            className={`relative aspect-square rounded-[3px] flex items-center justify-center text-[7px] font-mono ${
+                              isToday ? 'bg-cyan-400/30 border border-cyan-300 text-white font-bold'
+                              : isBooked ? 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-200'
+                              : 'bg-white/[0.04] border border-white/5 text-white/30'
+                            }`}
+                          >
+                            {i + 1}
+                            {isBooked && (
+                              <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-0.5 h-0.5 rounded-full bg-emerald-400 syncita-cell-pulse" style={{ animationDelay: `${i * 200}ms` }} />
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  {/* Appointment list */}
+                  <div className="col-span-3 flex flex-col gap-2">
+                    <div className="text-[10px] text-white/50 uppercase tracking-wider font-semibold mb-0.5">Próximas citas</div>
+                    {[
+                      { time: '10:00 AM', name: 'Ana García', doctor: 'Dr. López', type: 'Consulta', color: 'cyan' },
+                      { time: '02:30 PM', name: 'Carlos R.', doctor: 'Dra. Mora', type: 'Control', color: 'purple' },
+                      { time: '04:00 PM', name: 'María S.', doctor: 'Dr. Vega', type: 'Terapia', color: 'emerald' },
+                    ].map((apt, i) => (
+                      <div key={i} className="flex items-center gap-2.5 bg-white/[0.04] border border-white/8 rounded-lg px-3 py-2">
+                        <div className={`text-[10px] font-mono font-bold shrink-0 ${apt.color === 'cyan' ? 'text-cyan-300' : apt.color === 'purple' ? 'text-purple-300' : 'text-emerald-300'}`}>
+                          {apt.time}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-white/90 text-[10px] font-semibold truncate">{apt.name}</div>
+                          <div className="text-white/40 text-[9px] truncate">{apt.doctor}</div>
+                        </div>
+                        <span className={`text-[8px] px-1.5 py-0.5 rounded font-semibold shrink-0 ${apt.color === 'cyan' ? 'bg-cyan-500/15 text-cyan-300' : apt.color === 'purple' ? 'bg-purple-500/15 text-purple-300' : 'bg-emerald-500/15 text-emerald-300'}`}>
+                          {apt.type}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ── IA ── */}
+            {active === 2 && (
+              <motion.div key="ia" variants={tabVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.22 }}>
+                <div className="bg-white/[0.03] border border-white/10 rounded-xl p-3 flex flex-col gap-2.5">
+                  <div className="flex items-center justify-between pb-2 border-b border-white/5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                        <i className="fas fa-robot text-white text-[10px]"></i>
+                      </div>
+                      <div>
+                        <div className="text-white/90 text-[10px] font-semibold leading-none">Agente IA · Syncita</div>
+                        <div className="text-[8px] text-white/40">Langfuse · GPT-4o routing</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      <span className="text-[9px] text-emerald-400 font-mono">online</span>
+                    </div>
+                  </div>
+                  {/* Exchange 1 */}
+                  <div className="flex justify-end">
+                    <div className="max-w-[80%] bg-cyan-500/15 border border-cyan-400/20 rounded-xl rounded-tr-sm px-3 py-2">
+                      <p className="text-white/90 text-[10px] leading-snug">Quiero agendar para mañana a las 3pm con el Dr. López</p>
+                    </div>
+                  </div>
+                  <div className="flex justify-start gap-1.5">
+                    <div className="w-5 h-5 rounded-md bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shrink-0 mt-0.5">
+                      <i className="fas fa-robot text-white text-[8px]"></i>
+                    </div>
+                    <div className="bg-white/[0.06] border border-white/10 rounded-xl rounded-tl-sm px-3 py-2 max-w-[80%]">
+                      <div className="syncita-typing-cycle">
+                        <p className="syncita-typing-msg text-white/85 text-[10px] leading-snug">✓ Listo, María. Cita confirmada mañana 3:00 PM con Dr. López. Te enviaré recordatorio vía WhatsApp.</p>
+                        <div className="syncita-typing-dots flex items-center gap-1 py-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white/50 syncita-dot syncita-dot-1"></span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-white/50 syncita-dot syncita-dot-2"></span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-white/50 syncita-dot syncita-dot-3"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Exchange 2 */}
+                  <div className="flex justify-end">
+                    <div className="max-w-[80%] bg-cyan-500/15 border border-cyan-400/20 rounded-xl rounded-tr-sm px-3 py-2">
+                      <p className="text-white/90 text-[10px] leading-snug">¿Cuántos pacientes tengo esta semana?</p>
+                    </div>
+                  </div>
+                  <div className="flex justify-start gap-1.5">
+                    <div className="w-5 h-5 rounded-md bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shrink-0 mt-0.5">
+                      <i className="fas fa-robot text-white text-[8px]"></i>
+                    </div>
+                    <div className="bg-white/[0.06] border border-white/10 rounded-xl rounded-tl-sm px-3 py-2 max-w-[80%]">
+                      <p className="text-white/85 text-[10px] leading-snug">Tienes <span className="text-cyan-300 font-semibold">23 citas</span> esta semana — 8 hoy, 6 mañana y 9 el resto.</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ── Pagos ── */}
+            {active === 3 && (
+              <motion.div key="pagos" variants={tabVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.22 }} className="space-y-3">
+                {/* Summary header */}
+                <div className="flex items-center justify-between bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-400/20 rounded-xl px-4 py-3">
+                  <div>
+                    <div className="text-[9px] text-white/50 uppercase tracking-wider mb-0.5">Total · Mayo</div>
+                    <div className="text-xl font-black text-white font-display tracking-tight syncita-shimmer">$38,290</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="flex items-center gap-1 justify-end mb-0.5">
+                      <i className="fas fa-arrow-trend-up text-emerald-400 text-[10px]"></i>
+                      <span className="text-emerald-300 text-[11px] font-bold">+14.2%</span>
+                    </div>
+                    <div className="text-[9px] text-white/40">vs Abril</div>
+                  </div>
+                </div>
+                {/* Transaction list */}
+                <div className="space-y-2">
+                  {[
+                    { desc: 'Consulta · Dra. Mora', amount: '+$45.00', time: 'hace 12 min', status: 'confirmado', color: 'emerald' },
+                    { desc: 'Suscripción Pro · Clínica Central', amount: '+$120.00', time: 'hace 1 h', status: 'confirmado', color: 'emerald' },
+                    { desc: 'Reembolso · Carlos R.', amount: '-$30.00', time: 'ayer', status: 'procesado', color: 'amber' },
+                    { desc: 'Consulta · Dr. Vega', amount: '+$60.00', time: 'ayer', status: 'confirmado', color: 'emerald' },
+                  ].map((tx, i) => (
+                    <div key={i} className="flex items-center gap-3 bg-white/[0.03] border border-white/8 rounded-lg px-3 py-2">
+                      <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${tx.color === 'emerald' ? 'bg-emerald-500/15 text-emerald-300' : 'bg-amber-500/15 text-amber-300'}`}>
+                        <i className={`fas ${tx.color === 'emerald' ? 'fa-arrow-down' : 'fa-arrow-up'} text-[10px]`}></i>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-white/90 text-[10px] font-semibold truncate">{tx.desc}</div>
+                        <div className="text-white/35 text-[9px]">{tx.time} · Payphone</div>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <div className={`text-[11px] font-bold font-mono ${tx.color === 'emerald' ? 'text-emerald-300' : 'text-amber-300'}`}>{tx.amount}</div>
+                        <div className={`text-[8px] ${tx.color === 'emerald' ? 'text-emerald-400/70' : 'text-amber-400/70'}`}>{tx.status}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
       {/* Local styles */}
       <style>{`
-        /* Sparkline draw-in */
         @keyframes syncita-spark-draw {
           0%   { stroke-dasharray: 600; stroke-dashoffset: 600; }
           60%  { stroke-dashoffset: 0; }
@@ -491,11 +595,8 @@ const SyncitaLiveMockup: React.FC = () => {
           animation: syncita-spark-draw 4s ease-out infinite;
           filter: drop-shadow(0 0 4px rgba(34,211,238,0.6));
         }
-        .syncita-spark-dot {
-          filter: drop-shadow(0 0 6px rgba(103,232,249,0.9));
-        }
+        .syncita-spark-dot { filter: drop-shadow(0 0 6px rgba(103,232,249,0.9)); }
 
-        /* Shimmer on the big revenue number */
         @keyframes syncita-shimmer-move {
           0%   { background-position: -200% 0; }
           100% { background-position: 200% 0; }
@@ -509,17 +610,15 @@ const SyncitaLiveMockup: React.FC = () => {
           animation: syncita-shimmer-move 5s linear infinite;
         }
 
-        /* AI typing dots */
         @keyframes syncita-bounce {
           0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
-          30%           { transform: translateY(-3px); opacity: 1; }
+          30%            { transform: translateY(-3px); opacity: 1; }
         }
         .syncita-dot { animation: syncita-bounce 1.2s ease-in-out infinite; }
         .syncita-dot-1 { animation-delay: 0s; }
         .syncita-dot-2 { animation-delay: 0.15s; }
         .syncita-dot-3 { animation-delay: 0.3s; }
 
-        /* Cycle: dots → message → dots */
         @keyframes syncita-typing-show-dots {
           0%, 20%   { opacity: 1; height: auto; }
           25%, 90%  { opacity: 0; height: 0; }
@@ -538,34 +637,17 @@ const SyncitaLiveMockup: React.FC = () => {
           animation: syncita-typing-show-msg 6s ease-in-out infinite;
         }
 
-        /* Calendar booked-cell pulse */
         @keyframes syncita-cell-pulse {
           0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.7; }
           50%      { transform: translateX(-50%) scale(2); opacity: 1; box-shadow: 0 0 6px rgba(52,211,153,0.8); }
         }
-        .syncita-cell-pulse {
-          animation: syncita-cell-pulse 2.5s ease-in-out infinite;
-        }
-
-        /* Floating toast appear / disappear */
-        @keyframes syncita-toast-cycle {
-          0%, 5%    { opacity: 0; transform: translateX(20px) scale(0.9); }
-          12%, 35%  { opacity: 1; transform: translateX(0) scale(1); }
-          42%, 100% { opacity: 0; transform: translateX(20px) scale(0.9); }
-        }
-        .syncita-toast {
-          animation: syncita-toast-cycle 7s ease-in-out infinite;
-          animation-delay: 1.5s;
-        }
+        .syncita-cell-pulse { animation: syncita-cell-pulse 2.5s ease-in-out infinite; }
 
         @media (prefers-reduced-motion: reduce) {
-          .syncita-spark-line,
-          .syncita-shimmer,
-          .syncita-dot,
+          .syncita-spark-line, .syncita-shimmer, .syncita-dot,
           .syncita-typing-cycle .syncita-typing-dots,
           .syncita-typing-cycle .syncita-typing-msg,
-          .syncita-cell-pulse,
-          .syncita-toast { animation: none !important; }
+          .syncita-cell-pulse { animation: none !important; }
           .syncita-typing-cycle .syncita-typing-msg { opacity: 1; transform: none; }
           .syncita-typing-cycle .syncita-typing-dots { display: none; }
         }
@@ -690,7 +772,7 @@ const FlagshipCard: React.FC<SharedCardProps> = ({ project, getTechnologyColor, 
             </div>
 
             {/* Animated live activity mockup */}
-            <SyncitaLiveMockup />
+            <SyncitaTabsMockup />
           </div>
         </div>
       </div>

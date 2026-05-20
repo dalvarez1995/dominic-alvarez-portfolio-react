@@ -263,11 +263,11 @@ export const defaultPortfolioConfig: PortfolioConfig = {
   },
 
   seo: {
-    title: "Dominic Alvarez Robles - Portfolio",
-    titleTemplate: "{name} - {role} | Portfolio", // Template for dynamic title generation
-    description: "Portfolio of Dominic Alvarez Robles, showcasing expertise in .NET, enterprise solutions, and modern web development.",
-    keywords: ["Software Developer", "Technical Lead", ".NET", "React", "Azure", "Full Stack"],
-    ogImage: "/images/syncita/syncita-og.webp" // Open Graph image for social media sharing
+    title: "Dominic Alvarez — Software Technical Lead & Full-Stack Engineer",
+    titleTemplate: "{name} — {role} | Portfolio",
+    description: "Portfolio of Dominic Alvarez — Software Technical Lead, founder of Syncita. Expert in NestJS, React 19, TypeScript, PostgreSQL, and self-hosted cloud infrastructure.",
+    keywords: ["Dominic Alvarez", "Software Technical Lead", "Full Stack Developer", "NestJS", "React", "TypeScript", "PostgreSQL", "SaaS", "Syncita", "Ecuador"],
+    ogImage: "/images/syncita/syncita-og.webp"
   }
 };
 

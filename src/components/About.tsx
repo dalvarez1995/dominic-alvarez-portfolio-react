@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import ReactCountryFlag from 'react-country-flag';
 import type { StatItem, SkillCategory, LocationInfo, LanguageInfo } from '../types/ui.types';
 import type { Certification, Specialization } from '../types/education.types';
@@ -147,14 +148,98 @@ const About: React.FC<AboutProps> = ({
           <div className="lg:col-span-4 animate-fade-in stagger-6">
             {/* Profile Image & Info Card */}
             <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 group">
-              {/* DA Monogram */}
+              {/* DA Monogram — Premium */}
               <div className="text-center mb-6">
-                <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-gradient-to-br from-primary-800 to-primary-900 border border-accent-500/30 shadow-xl mx-auto">
-                  <span className="font-display text-3xl font-black bg-gradient-to-br from-accent-300 to-accent-500 bg-clip-text text-transparent select-none">
-                    DA
-                  </span>
-                  <div className="absolute inset-0 rounded-2xl ring-2 ring-accent-500/20"></div>
-                </div>
+                <motion.div
+                  className="relative inline-flex items-center justify-center mx-auto"
+                  style={{ width: 112, height: 112 }}
+                  whileHover={{ scale: 1.06 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                >
+                  {/* Pulsing glow halo */}
+                  <motion.div
+                    className="absolute inset-0 rounded-3xl pointer-events-none"
+                    style={{
+                      background: 'radial-gradient(ellipse, rgba(6,182,212,0.4) 0%, rgba(139,92,246,0.18) 50%, transparent 70%)',
+                      filter: 'blur(14px)',
+                    }}
+                    animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.1, 1] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                  />
+
+                  {/* Primary rotating dashed ring */}
+                  <motion.svg
+                    className="absolute inset-0 w-full h-full"
+                    viewBox="0 0 112 112"
+                    fill="none"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 9, repeat: Infinity, ease: 'linear' }}
+                  >
+                    <defs>
+                      <linearGradient id="avatarRingGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.95" />
+                        <stop offset="50%" stopColor="#a78bfa" stopOpacity="0.65" />
+                        <stop offset="100%" stopColor="#34d399" stopOpacity="0.45" />
+                      </linearGradient>
+                    </defs>
+                    <circle
+                      cx="56" cy="56" r="52"
+                      stroke="url(#avatarRingGrad)"
+                      strokeWidth="2"
+                      strokeDasharray="16 8"
+                      strokeLinecap="round"
+                    />
+                  </motion.svg>
+
+                  {/* Counter-rotating inner ring */}
+                  <motion.svg
+                    className="absolute inset-0 w-full h-full"
+                    viewBox="0 0 112 112"
+                    fill="none"
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+                  >
+                    <circle
+                      cx="56" cy="56" r="44"
+                      stroke="rgba(139,92,246,0.28)"
+                      strokeWidth="1"
+                      strokeDasharray="5 18"
+                      strokeLinecap="round"
+                    />
+                  </motion.svg>
+
+                  {/* Glassmorphism inner square */}
+                  <div
+                    className="relative z-10 flex items-center justify-center rounded-2xl border border-white/20 shadow-2xl overflow-hidden"
+                    style={{
+                      width: 80,
+                      height: 80,
+                      background: 'linear-gradient(135deg, rgba(15,23,42,0.96) 0%, rgba(30,41,59,0.92) 50%, rgba(15,23,42,0.96) 100%)',
+                      backdropFilter: 'blur(12px)',
+                      boxShadow: '0 0 0 1px rgba(6,182,212,0.22), inset 0 1px 0 rgba(255,255,255,0.09)',
+                    }}
+                  >
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(6,182,212,0.09) 0%, transparent 50%, rgba(139,92,246,0.07) 100%)',
+                      }}
+                    />
+                    <span
+                      className="relative font-display text-3xl font-black select-none"
+                      style={{
+                        background: 'linear-gradient(135deg, #67e8f9 0%, #a78bfa 55%, #34d399 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        letterSpacing: '-0.02em',
+                      }}
+                    >
+                      DA
+                    </span>
+                  </div>
+                </motion.div>
+
                 <div className="mt-3">
                   <p className="text-sm font-semibold text-primary-700">Dominic Alvarez</p>
                   <p className="text-xs text-primary-500">Software Technical Lead</p>
